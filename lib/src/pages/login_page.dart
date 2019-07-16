@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           _colorFondo(),
           _imagenFondo(),
-          _loginInputs(),
+          _loginInputs(context),
         ],
       ),
     );
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginInputs() {
+  Widget _loginInputs(BuildContext context) {
     final estiloTitulo = TextStyle(
         color: Colors.black, fontWeight: FontWeight.w600, fontSize: 40.0);
 
@@ -121,26 +121,41 @@ class _LoginPageState extends State<LoginPage> {
           ),
           // Login Button.
           SizedBox(height: 30),
-          RaisedButton(
-            onPressed: () {},
-            textColor: Colors.white,
-            padding: EdgeInsets.all(0.0),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF42A5F5),                   
-                    Color(0xFF1976D2), 
-                    Color(0xFF0D47A1),                   
-                  ],
+          Builder(
+            builder: (context) => RaisedButton(
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: Text('Yay! A SnackBar!'),
+                      // action: SnackBarAction(
+                      //   label: 'Undo',
+                      //   onPressed: () {
+                      //     // Some code to undo the change.
+                      //   },
+                      // ),
+                    );
+
+                    // Find the Scaffold in the widget tree and use
+                    // it to show a SnackBar.
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  },
+                  textColor: Colors.white,
+                  padding: EdgeInsets.all(0.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF42A5F5),
+                            Color(0xFF1976D2),
+                            Color(0xFF0D47A1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    // Padding del boton.
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                    child: Text('Ingresar', style: TextStyle(fontSize: 20)),
+                  ),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0))
-              ),
-              // Padding del boton.
-              padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-              child:
-                  const Text('Ingresar', style: TextStyle(fontSize: 20)),
-            ),
           ),
         ],
       ),

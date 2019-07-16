@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:prueba/src/pages/login_page.dart';
+import 'package:prueba/src/pages/pruebs_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login'  : (BuildContext context ) => LoginPage(),
+        'prueba' : (BuildContext context ) => SnackBarDemo(),
       },
 
     );
