@@ -48,9 +48,8 @@ flutter:
   assets:
     - assets/icons/moon.png
     - assets/icons/sun.png
-    - assets/icons/fondo.jpeg
-    - assets/icons/fondo2.jpg
-
+    - assets/icons/fondo.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
