@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
           _colorFondo(),
           _imagenFondo(),
           _loginInputs(context),
+          _olvidarContrasenayRegistro(),
+          _redesSociales(),
         ],
       ),
     );
@@ -70,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage('assets/icons/fondo.png'),
+        image: AssetImage('assets/img/fondo.png'),
         fit: BoxFit.fill,
       ),
     );
@@ -123,41 +127,120 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 30),
           Builder(
             builder: (context) => RaisedButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      content: Text('Yay! A SnackBar!'),
-                      // action: SnackBarAction(
-                      //   label: 'Undo',
-                      //   onPressed: () {
-                      //     // Some code to undo the change.
-                      //   },
-                      // ),
-                    );
-
-                    // Find the Scaffold in the widget tree and use
-                    // it to show a SnackBar.
-                    Scaffold.of(context).showSnackBar(snackBar);
-                  },
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(0.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Color(0xFF42A5F5),
-                            Color(0xFF1976D2),
-                            Color(0xFF0D47A1),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    // Padding del boton.
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                    child: Text('Ingresar', style: TextStyle(fontSize: 20)),
-                  ),
-                ),
+              onPressed: () {
+                final snackBar = SnackBar(
+                  content: Text('Yay! A SnackBar!'),
+                );
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              textColor: Colors.white,
+              padding: EdgeInsets.all(0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color(0xFF42A5F5),
+                        Color(0xFF1976D2),
+                        Color.fromRGBO(34, 139, 134, 100.0),
+                        //Color(0xFF0D47A1),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                // Padding del boton.
+                padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                child: Text('Ingresar', style: TextStyle(fontSize: 20)),
+              ),
+            ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _olvidarContrasenayRegistro() {
+    return Positioned(
+      top: MediaQuery.of(context).size.height / 2.4,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.only(left: 15),
+        color: Colors.transparent,
+        child: Column(
+          children: <Widget>[
+            FlatButton(
+              color: Colors.transparent,
+              textColor: Colors.black,
+              child: Text('Olvidaste tu contraseña?'),
+              onPressed: () {
+                print('holasssssssssss');
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('No tienes cuenta?',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+                FlatButton(
+                  color: Colors.transparent,
+                  textColor: Colors.black,
+                  child: Text('Registrate'),
+                  onPressed: () {
+                    print('holasssssssssss');
+                  },
+                ),
+              ],
+            ),
+            Container(
+              color: Colors.transparent,
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Divider()),
+                  Text(" O "),
+                  Expanded(child: Divider()),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _redesSociales() {
+    return Positioned(
+      top: MediaQuery.of(context).size.height / 1.7,
+      child: Container(
+        color: Colors.transparent,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text('Registrate con Redes Sociales'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  icon: Image.asset('assets/icons/google.png'),
+                  iconSize: 50.0,
+                  onPressed: () {
+                    print('object Google');
+                  },
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width/4,),
+                IconButton(
+                  icon: Image.asset('assets/icons/facebook.png'),
+                  iconSize: 50.0,
+                  onPressed: () {
+                    print('object facebook.');
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
