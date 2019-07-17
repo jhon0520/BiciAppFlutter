@@ -46,11 +46,7 @@ flutter:
   #  - images/a_dot_ham.jpeg
 
   assets:
-    - assets/icons/moon.png
-    - assets/icons/sun.png
-    - assets/icons/google.png
-    - assets/icons/facebook.png
-    - assets/img/fondo.png
+    - assets/
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
