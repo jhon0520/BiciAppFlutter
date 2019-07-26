@@ -66,9 +66,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginInputs() {
     final size = MediaQuery.of(context).size;
+    TextStyle tituloColor;
 
-    final estiloTitulo = TextStyle(
-        color: Colors.black, fontWeight: FontWeight.w600, fontSize: 30.0);
+    if (dayMode) {
+      tituloColor = estiloTituloDia;
+    } else {
+      tituloColor = estiloTituloNoche;
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -85,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Text(
                   'Iniciar Sesión',
-                  style: estiloTitulo,
+                  style: tituloColor,
                 ),
                 SizedBox(height: 20.0),
                 _crearUsuario(),
@@ -121,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         cursorColor: colorTexto,
-        
+        style: TextStyle(color: colorIcono),
         decoration: InputDecoration(
           icon: Icon(Icons.account_circle, color: colorIcono, size: 50.0),
           hintText: 'ejemplo@correo.com',
@@ -130,6 +134,15 @@ class _LoginPageState extends State<LoginPage> {
           counterStyle: TextStyle(color: colorTexto),
           labelStyle: TextStyle(color: colorTexto),
           hintStyle: TextStyle(color: colorTexto),
+
+          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+          enabledBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
+          //Cambio de color cuando la barra inferior del TextField esta seleccionada
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
         ),
       ),
     );
@@ -157,12 +170,28 @@ class _LoginPageState extends State<LoginPage> {
           counterStyle: TextStyle(color: colorTexto),
           labelStyle: TextStyle(color: colorTexto),
           hintStyle: TextStyle(color: colorTexto),
+
+          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+          enabledBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
+          //Cambio de color cuando la barra inferior del TextField esta seleccionada
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
         ),
       ),
     );
   }
 
   Widget _crearBotonLogin() {
+    Color colorTexto;
+    if (dayMode) {
+      colorTexto = colorIconDia;
+    } else {
+      colorTexto = colorTextoNight;
+    }
+
     return Builder(
       builder: (context) => RaisedButton(
         onPressed: () {
@@ -171,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
           );
           Scaffold.of(context).showSnackBar(snackBar);
         },
-        textColor: Colors.white,
+        textColor: colorTexto,
         padding: EdgeInsets.all(0.0),
         child: Container(
           decoration: BoxDecoration(
@@ -183,22 +212,30 @@ class _LoginPageState extends State<LoginPage> {
                   //Color(0xFF0D47A1),
                 ],
               ),
-              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+              borderRadius: BorderRadius.all(Radius.circular(0.0))),
           // Padding del boton.
           padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-          child: Text('Ingresar', style: TextStyle(fontSize: 20)),
+          child: Text('Ingresar',
+              style: TextStyle(color: colorTexto, fontSize: 20)),
         ),
       ),
     );
   }
 
   Widget _crearOlvidoContrasena() {
+    Color colorTexto;
+    if (dayMode) {
+      colorTexto = colorIconDia;
+    } else {
+      colorTexto = colorTextoNight;
+    }
+
     return Container(
         child: Column(
       children: <Widget>[
         FlatButton(
           color: Colors.transparent,
-          textColor: Colors.black,
+          textColor: colorTexto,
           child: Text('Olvidaste tu contraseña?'),
           onPressed: () {
             print('holasssssssssss');
@@ -209,11 +246,11 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Text('No tienes cuenta?',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: colorTexto,
                 )),
             FlatButton(
               color: Colors.transparent,
-              textColor: Colors.black,
+              textColor: colorTexto,
               child: Text('Registrate'),
               onPressed: () {
                 print('holasssssssssss');
@@ -228,9 +265,18 @@ class _LoginPageState extends State<LoginPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(child: Divider()),
-              Text(" O "),
-              Expanded(child: Divider()),
+              Expanded(
+                  child: Divider(
+                color: colorTexto,
+              )),
+              Text(
+                " O ",
+                style: TextStyle(color: colorTexto),
+              ),
+              Expanded(
+                  child: Divider(
+                color: colorTexto,
+              )),
             ],
           ),
         ),
@@ -239,13 +285,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _redesSociales() {
+    Color colorTexto;
+    if (dayMode) {
+      colorTexto = colorIconDia;
+    } else {
+      colorTexto = colorTextoNight;
+    }
+
     return Container(
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Text('Registrate con Redes Sociales'),
+          Text(
+            'Registrate con Redes Sociales',
+            style: TextStyle(color: colorTexto),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
