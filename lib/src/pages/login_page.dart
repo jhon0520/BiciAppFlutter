@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prueba/src/utils/colors_utils.dart';
 import 'package:prueba/src/wisgets/fondoPantalla_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,22 +9,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   bool dayMode = true;
-
-  final estiloTituloDia = TextStyle(
-      color: Colors.black, fontWeight: FontWeight.w600, fontSize: 30.0);
-
-  final estiloTituloNoche = TextStyle(
-      color: Colors.white, fontWeight: FontWeight.w600, fontSize: 30.0);
-
-  final estiloIcosDia = TextStyle(
-      color: Colors.white, fontWeight: FontWeight.w600, fontSize: 30.0);
-
-  Color colorIconDia = Colors.black;
-  Color colorIconNight = Colors.white;
-
-  Color colorTextoDia = Colors.black;
-  Color colorTextoNight = Colors.white;
+    ColorsUtils color= new ColorsUtils();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          //_fondo(),
           FondoPantallaWidget(
             dayModeActivate: dayMode,
           ),
@@ -69,9 +56,9 @@ class _LoginPageState extends State<LoginPage> {
     TextStyle tituloColor;
 
     if (dayMode) {
-      tituloColor = estiloTituloDia;
+      tituloColor = color.estiloTituloDia;
     } else {
-      tituloColor = estiloTituloNoche;
+      tituloColor = color.estiloTituloNoche;
     }
 
     return SingleChildScrollView(
@@ -113,11 +100,11 @@ class _LoginPageState extends State<LoginPage> {
     Color colorIcono;
     Color colorTexto;
     if (dayMode) {
-      colorIcono = colorIconDia;
-      colorTexto = colorIconDia;
+      colorIcono = color.colorIconDia;
+      colorTexto = color.colorIconDia;
     } else {
-      colorIcono = colorIconNight;
-      colorTexto = colorTextoNight;
+      colorIcono = color.colorIconNight;
+      colorTexto = color.colorTextoNight;
     }
 
     return Container(
@@ -152,11 +139,11 @@ class _LoginPageState extends State<LoginPage> {
     Color colorIcono;
     Color colorTexto;
     if (dayMode) {
-      colorIcono = colorIconDia;
-      colorTexto = colorIconDia;
+      colorIcono = color.colorIconDia;
+      colorTexto = color.colorIconDia;
     } else {
-      colorIcono = colorIconNight;
-      colorTexto = colorTextoNight;
+      colorIcono = color.colorIconNight;
+      colorTexto = color.colorTextoNight;
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -187,9 +174,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _crearBotonLogin() {
     Color colorTexto;
     if (dayMode) {
-      colorTexto = colorIconDia;
+      colorTexto = color.colorIconDia;
     } else {
-      colorTexto = colorTextoNight;
+      colorTexto = color.colorTextoNight;
     }
 
     return Builder(
@@ -225,9 +212,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _crearOlvidoContrasena() {
     Color colorTexto;
     if (dayMode) {
-      colorTexto = colorIconDia;
+      colorTexto = color.colorIconDia;
     } else {
-      colorTexto = colorTextoNight;
+      colorTexto = color.colorTextoNight;
     }
 
     return Container(
@@ -287,9 +274,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _redesSociales() {
     Color colorTexto;
     if (dayMode) {
-      colorTexto = colorIconDia;
+      colorTexto = color.colorIconDia;
     } else {
-      colorTexto = colorTextoNight;
+      colorTexto = color.colorTextoNight;
     }
 
     return Container(
