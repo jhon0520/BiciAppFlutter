@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prueba/src/blocks/provider.dart';
 import 'package:prueba/src/utils/colors_utils.dart';
-import 'package:prueba/src/wisgets/fondoPantalla_widget.dart';
+import 'package:prueba/src/widgets/fondoPantalla_widget.dart';
+
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -9,9 +11,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   bool dayMode = true;
-    ColorsUtils color= new ColorsUtils();
+  ColorsUtils color = new ColorsUtils();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginInputs() {
     final size = MediaQuery.of(context).size;
+
+    final bloc = Provider.of(context);
+
     TextStyle tituloColor;
 
     if (dayMode) {
@@ -79,9 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: tituloColor,
                 ),
                 SizedBox(height: 20.0),
-                _crearUsuario(),
+                _crearUsuario(bloc),
                 SizedBox(height: 20.0),
-                _crearContrasena(),
+                _crearContrasena(bloc),
                 SizedBox(height: 20.0),
                 _crearBotonLogin(),
                 SizedBox(height: 20.0),
@@ -96,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _crearUsuario() {
+  Widget _crearUsuario(LoginBloc bloc) {
     Color colorIcono;
     Color colorTexto;
     if (dayMode) {
@@ -107,35 +111,43 @@ class _LoginPageState extends State<LoginPage> {
       colorTexto = color.colorTextoNight;
     }
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        cursorColor: colorTexto,
-        style: TextStyle(color: colorIcono),
-        decoration: InputDecoration(
-          icon: Icon(Icons.account_circle, color: colorIcono, size: 50.0),
-          hintText: 'ejemplo@correo.com',
-          labelText: 'Usuario',
-          counterText: 'Usuario',
-          counterStyle: TextStyle(color: colorTexto),
-          labelStyle: TextStyle(color: colorTexto),
-          hintStyle: TextStyle(color: colorTexto),
+    return StreamBuilder(
+      stream: bloc.userStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            cursorColor: colorTexto,
+            style: TextStyle(color: colorIcono),
+            decoration: InputDecoration(
+              icon: Icon(Icons.account_circle, color: colorIcono, size: 50.0),
+              hintText: 'ejemplo@correo.com',
+              labelText: 'Usuario',
+              counterText: snapshot.data,
+              counterStyle: TextStyle(color: colorTexto),
+              labelStyle: TextStyle(color: colorTexto),
+              hintStyle: TextStyle(color: colorTexto),
 
-          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
-          enabledBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
-          //Cambio de color cuando la barra inferior del TextField esta seleccionada
-          focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: colorIcono, style: BorderStyle.solid)),
-        ),
-      ),
+              //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+              enabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: colorIcono, style: BorderStyle.solid)),
+              //Cambio de color cuando la barra inferior del TextField esta seleccionada
+              focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: colorIcono, style: BorderStyle.solid)),
+            ),
+            onChanged: (value){
+              bloc.changeUser(value);
+            },
+          ),
+        );
+      },
     );
   }
 
-  Widget _crearContrasena() {
+  Widget _crearContrasena(LoginBloc bloc) {
     Color colorIcono;
     Color colorTexto;
     if (dayMode) {

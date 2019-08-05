@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:prueba/src/blocks/provider.dart';
 import 'package:prueba/src/pages/login_page.dart';
 import 'package:prueba/src/pages/registro_page.dart';
 
@@ -7,19 +7,17 @@ void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
+    return Provider(
+        child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Bici App',
       initialRoute: 'login',
       routes: {
-        'login'    : (BuildContext context ) => LoginPage(),
-        'registro' : (BuildContext context ) => RegistroPage(),
+        'login': (BuildContext context) => LoginPage(),
+        'registro': (BuildContext context) => RegistroPage(),
       },
-
-    );
+    ));
   }
 }
