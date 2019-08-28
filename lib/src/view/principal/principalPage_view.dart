@@ -1,3 +1,4 @@
+import 'package:biciapp/src/view/principal/routinepage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
@@ -18,12 +19,15 @@ class PrincipalPageView extends StatelessWidget {
 
     TabsProvider index = Provider.of<TabsProvider>(context);
     int _selectedTab = index.position;
+    int _pageSelected = index.pageSelected;
     
 
     final _pageOptions = [
       HomePagePrincipal(),
       Text('2'),
-      Text('3')
+      Text('3'),
+      //Prueba
+      RoutinePage(),
     ];
 
     return Scaffold(
@@ -31,7 +35,8 @@ class PrincipalPageView extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,        
         children: <Widget>[
-          _pageOptions[_selectedTab],
+          //_pageOptions[_selectedTab],
+          _pageOptions[_pageSelected],
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -43,6 +48,7 @@ class PrincipalPageView extends StatelessWidget {
         unselectedIconTheme: IconThemeData(color: Colors.grey),
         onTap: (value){
           index.positionChange = value;
+          index.pageSelectedChange =value;
         },
         items: [
           BottomNavigationBarItem(
