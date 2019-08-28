@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prueba/src/model/loginStyle/loginStyle_model.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 
 class HomePagePrincipal extends StatelessWidget {
   const HomePagePrincipal({Key key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prueba/src/model/loginStyle/loginStyle_model.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
-import 'package:prueba/src/provider/userdataapi_provider.dart';
-import 'package:prueba/src/utils/alert.dart';
+import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/userdataapi_provider.dart';
+import 'package:biciapp/src/utils/alert.dart';
 
 UserDataAPI api = new UserDataAPI();
 String userName;

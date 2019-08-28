@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:prueba/src/page/login_page.dart';
-import 'package:prueba/src/page/principal_page.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
-import 'package:prueba/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/page/login_page.dart';
+import 'package:biciapp/src/page/principal_page.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/tabs_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Pruebas App',
+        title: 'biciapps App',
         initialRoute: 'login',
         routes: {          
           'login' : (context) => LoginPage(),

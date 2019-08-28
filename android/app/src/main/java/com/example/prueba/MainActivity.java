@@ -1,4 +1,4 @@
-package com.example.prueba;
+package com.example.biciapp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

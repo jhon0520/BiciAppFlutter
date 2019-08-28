@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 
 class AppbarGlobal extends StatelessWidget {
   const AppbarGlobal({Key key}) : super(key: key);

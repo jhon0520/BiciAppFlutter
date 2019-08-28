@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prueba/src/model/loginStyle/loginStyle_model.dart';
-import 'package:prueba/src/provider/tabs_provider.dart';
-import 'package:prueba/src/view/principal/homepage_view.dart';
+import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
+import 'package:biciapp/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/view/principal/homepage_view.dart';
 
 class PrincipalPageView extends StatelessWidget {
 

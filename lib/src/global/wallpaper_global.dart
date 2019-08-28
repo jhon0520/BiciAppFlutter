@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 
 class WallpaperGlobal extends StatelessWidget {
   const WallpaperGlobal({Key key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:prueba/src/model/api/user_model.dart';
+import 'package:biciapp/src/model/api/user_model.dart';
 
-export 'package:prueba/src/model/api/user_model.dart';
+export 'package:biciapp/src/model/api/user_model.dart';
 
 class UserDataAPI extends ChangeNotifier{
 
@@ -33,7 +33,7 @@ class UserDataAPI extends ChangeNotifier{
 
   }
 
-  String prueba (String a, String b){
+  String biciapp (String a, String b){
     return a + b;
   }
 }

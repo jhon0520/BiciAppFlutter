@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prueba/src/global/switchappbarbuttom_global.dart';
-import 'package:prueba/src/global/wallpaper_global.dart';
-import 'package:prueba/src/model/loginStyle/loginStyle_model.dart';
-import 'package:prueba/src/provider/switchappbarbuttom_provider.dart';
-import 'package:prueba/src/view/principal/principalPage_view.dart';
+import 'package:biciapp/src/global/switchappbarbuttom_global.dart';
+import 'package:biciapp/src/global/wallpaper_global.dart';
+import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/view/principal/principalPage_view.dart';
 
 
 class PrincipalPage extends StatefulWidget {
