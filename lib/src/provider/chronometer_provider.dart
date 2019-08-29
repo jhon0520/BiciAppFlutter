@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 export 'package:provider/provider.dart';
 
 class ChronometerProvider extends ChangeNotifier{
@@ -9,6 +10,13 @@ class ChronometerProvider extends ChangeNotifier{
   String _stopwatchText = '00:00:00';
   Stopwatch _stopWatch = new Stopwatch();
   Duration _timeout = const Duration(seconds: 1);
+
+
+  var location = new Location();
+        Map<String, double> userLocation;
+
+
+  
 
   bool get isStart => _isStart;
   String get stopwatchText => _stopwatchText;
@@ -67,12 +75,32 @@ class ChronometerProvider extends ChangeNotifier{
 
       if( ( int.parse(_stopwatchText.substring(6,8)) % 10 )  == 0 ){
         print('estoy dentro yea!');
+
+         _getLocation().then((value) {
+                      userLocation = value;
+                      print(userLocation);
+                  });
       }
 
     }  
     _setStopwatchText();
 
   }
+
+
+  Future<Map<String, double>> _getLocation() async {
+    var currentLocation = <String, double>{};
+    try {
+      currentLocation = await location.getLocation();
+    } catch (e) {
+      currentLocation = null;
+    }
+    return currentLocation;
+  }
+
+
+
+
 
   void _setStopwatchText(){
     stopwatchTextChanged = _stopWatch.elapsed.inHours.toString().padLeft(2,'0') + ':'+

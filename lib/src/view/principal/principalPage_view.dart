@@ -1,3 +1,4 @@
+import 'package:biciapp/src/view/map/map_view.dart';
 import 'package:biciapp/src/view/principal/routinepage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
@@ -24,7 +25,7 @@ class PrincipalPageView extends StatelessWidget {
 
     final _pageOptions = [
       HomePagePrincipal(),
-      Text('2'),
+      MapView(),
       Text('3'),
       //Prueba
       RoutinePage(),
