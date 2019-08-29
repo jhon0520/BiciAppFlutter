@@ -1,3 +1,4 @@
+import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           builder: (_) => TabsProvider()
         ),
+
+        //Prueba
+        ChangeNotifierProvider(
+          builder: (_) => ChronometerProvider()
+        ),
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'biciapps App',
-        initialRoute: 'login',
+        initialRoute: 'principal',
         routes: {          
           'login' : (context) => LoginPage(),
           'principal' : (context) => PrincipalPage()
