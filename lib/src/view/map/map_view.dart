@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_map/flutter_map.dart';
+
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
 
 class MapView extends StatelessWidget {
   const MapView({Key key}) : super(key: key);
@@ -8,14 +11,23 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    GeoLocationProvider location = Provider.of<GeoLocationProvider>(context);
+  //SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
+
+    //location.setLocation();
+    LatLng getlocation = location.getPosition;
+    print('print map $getlocation');
+    //LatLng position = LatLng(getlocation['latitude'],getlocation['longitude']);
+    //print(position);
+
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(3.353571, -76.522356),
+        center: getlocation,
         zoom: 17
       ),
       layers: [
         _crearMapa(),
-        _drawMarker(),
+        _drawMarker(getlocation),
         _drawPolyline(),
       ],
       
@@ -34,13 +46,13 @@ class MapView extends StatelessWidget {
     );
   }
 
-  MarkerLayerOptions _drawMarker (){
+  MarkerLayerOptions _drawMarker (LatLng getlocation){
 
     final markers = <Marker>[
       Marker(
         width: 80.0,
         height: 80.0,
-        point: LatLng(3.353571, -76.522356),
+        point: getlocation,
         builder: (ctx) => Container(
           child: Icon(Icons.place, color: Colors.red, size: 40,),
         ),

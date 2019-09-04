@@ -1,27 +1,27 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 export 'package:provider/provider.dart';
 
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
+
 class ChronometerProvider extends ChangeNotifier{
+
+  
 
   bool _isStart = true;
   String _stopwatchText = '00:00:00';
   Stopwatch _stopWatch = new Stopwatch();
   Duration _timeout = const Duration(seconds: 1);
 
-
-  var location = new Location();
-        Map<String, double> userLocation;
-
-
-  
+  // Location provider
+  GeoLocationProvider location = GeoLocationProvider();
 
   bool get isStart => _isStart;
   String get stopwatchText => _stopwatchText;
   Stopwatch get stopwatch => _stopWatch;
   Duration get timeout => _timeout;
+
+  BuildContext context;
 
   set isSartChanged (bool newisStartedState){
     _isStart = newisStartedState;
@@ -44,7 +44,7 @@ class ChronometerProvider extends ChangeNotifier{
   }
 
 
-  // Logica de negocio
+  // Logica de negocio para cronometro
   void startStopButtonPressed() {
       if (_stopWatch.isRunning) {
         isSartChanged = true;
@@ -73,34 +73,16 @@ class ChronometerProvider extends ChangeNotifier{
     if (_stopWatch.isRunning) {
       _startTimeout();
 
-      if( ( int.parse(_stopwatchText.substring(6,8)) % 10 )  == 0 ){
-        print('estoy dentro yea!');
-
-         _getLocation().then((value) {
-                      userLocation = value;
-                      print(userLocation);
-                  });
-      }
+      // if( ( int.parse(_stopwatchText.substring(6,8)) % 10 )  == 0 ){
+      //   //print('estoy dentro yea!');
+      //   location.setLocation();
+      // }
 
     }  
     _setStopwatchText();
 
   }
-
-
-  Future<Map<String, double>> _getLocation() async {
-    var currentLocation = <String, double>{};
-    try {
-      currentLocation = await location.getLocation();
-    } catch (e) {
-      currentLocation = null;
-    }
-    return currentLocation;
-  }
-
-
-
-
+ 
 
   void _setStopwatchText(){
     stopwatchTextChanged = _stopWatch.elapsed.inHours.toString().padLeft(2,'0') + ':'+

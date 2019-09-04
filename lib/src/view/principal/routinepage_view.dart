@@ -1,5 +1,6 @@
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/chronometer_provider.dart';
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,18 @@ class RoutinePage extends StatelessWidget {
 
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
 
+    GeoLocationProvider geoposition = Provider.of<GeoLocationProvider>(context);
+    int position =0;
+
+    if( ( int.parse(timer.stopwatchText.substring(6,8)) % 10 )  == 0 ){
+        
+        print(timer.stopwatchText.substring(6,8));
+        print('estoy dentro yea!');
+        geoposition.setLocation();
+        position++;
+        //dispose();
+      }
+
     return Column(
       children: <Widget>[
         SizedBox(height: 20),
@@ -29,10 +42,12 @@ class RoutinePage extends StatelessWidget {
         _roadsText(dayMode, stylePage),
         SizedBox(height: 20),
         _timerText(timer),
-        SizedBox(height: 50),
+        //SizedBox(height: 50),
         _information(),
-        SizedBox(height: 50),
+        //SizedBox(height: 50),
         _inputButtoms(timer),
+        Text(geoposition.getPosition.toString()),
+        Text('$position ${geoposition.userLocation.toString()}'),
 
       ],
     );
