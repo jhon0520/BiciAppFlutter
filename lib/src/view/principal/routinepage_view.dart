@@ -20,14 +20,14 @@ class RoutinePage extends StatelessWidget {
 
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
 
-    GeoLocationProvider geoposition = Provider.of<GeoLocationProvider>(context);
+    LocationProvider geoposition = Provider.of<LocationProvider>(context);
     int position =0;
 
     if( ( int.parse(timer.stopwatchText.substring(6,8)) % 10 )  == 0 ){
         
         print(timer.stopwatchText.substring(6,8));
         print('estoy dentro yea!');
-        geoposition.setLocation();
+        geoposition.getPosition();
         position++;
         //dispose();
       }
@@ -46,8 +46,10 @@ class RoutinePage extends StatelessWidget {
         _information(),
         //SizedBox(height: 50),
         _inputButtoms(timer),
-        Text(geoposition.getPosition.toString()),
-        Text('$position ${geoposition.userLocation.toString()}'),
+        //Text(geoposition.getPosition.toString()),
+        //Text('$position ${geoposition.userLocation.toString()}'),
+        Text("latitude location: ${geoposition.getLatitude}"),
+        Text("longitude location: ${geoposition.getLongitude}")
 
       ],
     );

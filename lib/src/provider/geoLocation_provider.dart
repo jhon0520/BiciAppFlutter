@@ -1,73 +1,51 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:location/location.dart';
+
 export 'package:provider/provider.dart';
 
-import 'package:latlong/latlong.dart';
+class LocationProvider extends ChangeNotifier{
 
-class GeoLocationProvider extends ChangeNotifier{
+  double _latitude = 0.0;
+  double _longitude = 0.0;
 
-  final location = new Location();
-  Map<String, double> _userLocation;
+  //Location variable
+  Location _locationService  = Location();
+  LocationData _location;
+  bool _permission = false;
 
-  LatLng _geoPosition = LatLng(0,0);
+  double get getLatitude => _latitude;
+  double get getLongitude => _longitude;
 
-
-  /// get method to get information of user location.
-  Map<String, double> get userLocation {
-    print('get userLocation $_userLocation');
-    return _userLocation;
+  set latitudeChanged (double newlatitude){
+    _latitude = newlatitude;
+    notifyListeners();
   }
 
-  LatLng get getPosition {
-    print('get _geoPosition $_geoPosition');
-    //print('get userLocation $_userLocation');
-    return _geoPosition;
-    }
+  set longitudeChanged (double newlongitude) {
+    _longitude = newlongitude;
+    notifyListeners();
+  }
 
-  /// void method to set location user information
-  // void setLocation(){
-  //   _getLocation().then((value) {
-  //     this._userLocation = value;
-  //     print( this._userLocation);
-  //     changegeoPosition = LatLng(_userLocation['latitude'],_userLocation['longitude']);
-  //     _geoPosition = LatLng(_userLocation['latitude'],_userLocation['longitude']);
-  //     notifyListeners();
-  //     //print(LatLng(_userLocation['latitude'],_userLocation['longitude']));
-  //     //LatLng position = LatLng(_userLocation['latitude'],_userLocation['longitude']);
-  //     //print(_userLocation);
-  //     //print(position);
+  void getPosition () async {
+
+    await _locationService.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
+
+    bool serviceStatus = await _locationService.serviceEnabled();
+    print("Service status: $serviceStatus");
+    
+    if(serviceStatus){
+      _permission = await _locationService.requestPermission();
+      print("Permission: $_permission");
       
-  //   });
-  // }
-
-  void setLocation() async{
-    _userLocation = await _getLocation();
-    changegeoPosition = LatLng(_userLocation['latitude'],_userLocation['longitude']);
-  }
-
-  set changegeoPosition(LatLng newPosition){
-    print('set newPosition $newPosition');
-    _geoPosition = newPosition;
-    //print('set _geoPosition ${_geoPosition}');
-    notifyListeners();
-  }
-
-  set locationChanged(Map<String, double> newLocation){
-    _userLocation = newLocation;
-    //_geoPosition(_userLocation['latitude'],_userLocation['longitude']);
-    //print('set _userLocation ${_userLocation}');
-    notifyListeners();
-  }
-
-  Future<Map<String, double>> _getLocation() async {
-    //Map<String, double> currentLocation = <String, double>{};
-    try {
-      this._userLocation = await location.getLocation();
-    } catch (e) {
-      this._userLocation = null;
+      if (_permission) {
+        _location = await _locationService.getLocation();
+        latitudeChanged = _location.latitude;
+        longitudeChanged = _location.longitude;
+        print("latitude location: $getLatitude");
+        print("longitude location: $getLongitude");
+      }
     }
-    return this._userLocation;
+
   }
 
 }

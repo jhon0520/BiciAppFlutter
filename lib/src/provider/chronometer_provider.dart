@@ -13,9 +13,6 @@ class ChronometerProvider extends ChangeNotifier{
   Stopwatch _stopWatch = new Stopwatch();
   Duration _timeout = const Duration(seconds: 1);
 
-  // Location provider
-  GeoLocationProvider location = GeoLocationProvider();
-
   bool get isStart => _isStart;
   String get stopwatchText => _stopwatchText;
   Stopwatch get stopwatch => _stopWatch;

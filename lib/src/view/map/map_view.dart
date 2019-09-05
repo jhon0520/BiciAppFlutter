@@ -11,11 +11,12 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    GeoLocationProvider location = Provider.of<GeoLocationProvider>(context);
+    LocationProvider location = Provider.of<LocationProvider>(context);
   //SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
 
     //location.setLocation();
-    LatLng getlocation = location.getPosition;
+    // LatLng getlocation = location.getPosition;
+     LatLng getlocation = LatLng(location.getLatitude,location.getLongitude);
     print('print map $getlocation');
     //LatLng position = LatLng(getlocation['latitude'],getlocation['longitude']);
     //print(position);

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         // Location Provider
         ChangeNotifierProvider(
-          builder: (_) => GeoLocationProvider(),
+          builder: (_) => LocationProvider(),
         )
       ],
       child: MaterialApp(
