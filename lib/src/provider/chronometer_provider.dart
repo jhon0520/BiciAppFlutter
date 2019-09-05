@@ -2,11 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
-import 'package:biciapp/src/provider/geoLocation_provider.dart';
-
 class ChronometerProvider extends ChangeNotifier{
-
-  
 
   bool _isStart = true;
   String _stopwatchText = '00:00:00';
@@ -17,8 +13,6 @@ class ChronometerProvider extends ChangeNotifier{
   String get stopwatchText => _stopwatchText;
   Stopwatch get stopwatch => _stopWatch;
   Duration get timeout => _timeout;
-
-  BuildContext context;
 
   set isSartChanged (bool newisStartedState){
     _isStart = newisStartedState;
@@ -69,12 +63,6 @@ class ChronometerProvider extends ChangeNotifier{
   void _handleTimeout() {
     if (_stopWatch.isRunning) {
       _startTimeout();
-
-      // if( ( int.parse(_stopwatchText.substring(6,8)) % 10 )  == 0 ){
-      //   //print('estoy dentro yea!');
-      //   location.setLocation();
-      // }
-
     }  
     _setStopwatchText();
 

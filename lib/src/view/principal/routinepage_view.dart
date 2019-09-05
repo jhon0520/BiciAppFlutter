@@ -21,16 +21,14 @@ class RoutinePage extends StatelessWidget {
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
 
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
-    int position =0;
+    bool _getposition = geoposition.getisLocated;
 
-    if( ( int.parse(timer.stopwatchText.substring(6,8)) % 10 )  == 0 ){
-        
-        print(timer.stopwatchText.substring(6,8));
-        print('estoy dentro yea!');
-        geoposition.getPosition();
-        position++;
-        //dispose();
-      }
+    if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 ){
+      geoposition.getPosition();
+      //_getposition = false;
+      //geoposition.isLocatedChanged = false;
+    }
+
 
     return Column(
       children: <Widget>[

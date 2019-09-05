@@ -12,14 +12,10 @@ class MapView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     LocationProvider location = Provider.of<LocationProvider>(context);
-  //SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
 
-    //location.setLocation();
-    // LatLng getlocation = location.getPosition;
-     LatLng getlocation = LatLng(location.getLatitude,location.getLongitude);
+    LatLng getlocation = LatLng(location.getLatitude,location.getLongitude);
     print('print map $getlocation');
-    //LatLng position = LatLng(getlocation['latitude'],getlocation['longitude']);
-    //print(position);
+
 
     return FlutterMap(
       options: MapOptions(
@@ -43,7 +39,8 @@ class MapView extends StatelessWidget {
       additionalOptions: {
         'accessToken': 'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJjanY2MjF4NGIwMG9nM3lvMnN3ZDM1dWE5In0.0SfmUpbW6UFj7ZnRdRyNAw',
         'id': 'mapbox.streets'
-      }
+      },
+      //backgroundColor: Colors.black,
     );
   }
 
