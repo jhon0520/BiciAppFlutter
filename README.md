@@ -1,16 +1,20 @@
-# biciapp
+# Biciapp
 
-A new Flutter project.
+BiciApp it's a Movil App to cyclist.
+The idea is that this app show some information to users that allows know some rule that we should we know when ride a bike.
 
-## Getting Started
+## Plugins information
 
-This project is a starting point for a Flutter application.
+for this proyect we used next plugins
 
-A few resources to get you started if this is your first Flutter project:
+  provider: 3.1.0
+  https://pub.dev/packages/provider
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  http: 0.12.0+2
+  https://pub.dev/packages/http
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+  location: 2.3.5
+  https://pub.dev/packages/location
+
+  flutter_map: 0.7.1
+  https://pub.dev/packages/flutter_map
