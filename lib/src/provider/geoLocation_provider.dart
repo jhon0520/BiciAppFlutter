@@ -1,14 +1,25 @@
+import 'dart:io';
 import 'dart:math';
+import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:location/location.dart';
+import 'package:latlong/latlong.dart';
 
 export 'package:provider/provider.dart';
 
 class LocationProvider extends ChangeNotifier{
 
-  double _latitude = 0.0;
-  double _longitude = 0.0;
-  bool _isLocated = true;
+  double _latitude = 3.423849;
+  double _longitude = -76.521541;
+  bool _isStarted = false;
+
+  List<LatLng> _listofPoints = <LatLng>[];
+  List<double> _listofDistances = <double>[];
+ 
+  double _velocity = 0.0;
+  double _distance = 0.0;
+
+  double _time = 0.0;
 
   //Location variable
   Location _locationService  = Location();
@@ -17,7 +28,12 @@ class LocationProvider extends ChangeNotifier{
 
   double get getLatitude => _latitude;
   double get getLongitude => _longitude;
-  bool get getisLocated =>  _isLocated;
+  bool get getisStarted =>  _isStarted;
+  double get getDistance => _distance;
+  double get getVelocity => _velocity;
+  List<LatLng> get getPoints => _listofPoints;
+  List<double> get getDistances => _listofDistances;
+  double get getTime => _time;
 
   set latitudeChanged (double newlatitude){
     _latitude = newlatitude;
@@ -29,8 +45,44 @@ class LocationProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  set isLocatedChanged (bool locatedStatusChanged){
-    _isLocated = locatedStatusChanged;
+  set setisStarted (bool newisStarted){
+    _isStarted = newisStarted;
+    notifyListeners();
+  }
+
+  set setVelocityChanged (double velocityChanged){
+    _velocity = velocityChanged;
+    notifyListeners();
+  }
+
+  set setDistaceChanged(double distanceChanged){
+    _distance = distanceChanged;
+    notifyListeners();
+  }
+
+  set setNewPoint (LatLng newPoint){
+    _listofPoints.add(newPoint);
+    notifyListeners();
+  }
+
+  set setNewVelocity (double newVelocity){
+    _velocity = newVelocity;
+    notifyListeners();
+  }
+
+  void restarted (){
+    getPoints.clear();
+    getDistances.clear();
+    setNewVelocity = 0.0;
+  }
+
+  set setnewDistance (double newDistance){
+    _listofDistances.add(newDistance);
+    notifyListeners();
+  }
+
+  set setTime (double newTime){
+    _time = newTime;
     notifyListeners();
   }
 
@@ -47,8 +99,37 @@ class LocationProvider extends ChangeNotifier{
       
       if (_permission) {
         _location = await _locationService.getLocation();
+        sleep(const Duration(seconds:1));
         latitudeChanged = _location.latitude;
         longitudeChanged = _location.longitude;
+
+        if(_isStarted){
+          LatLng newposition = LatLng(_location.latitude,_location.longitude);
+          setNewPoint = newposition;
+          print('lista de puntos ${getPoints.length }');
+          //print('Puntos posicion uno ${getPoints[0] }');
+
+          if(getPoints.length > 1){
+            setTime = getTime + 10;
+            int position = getPoints.length;
+            double distance = calculateDistance(getPoints[position-2].latitude,getPoints[position-1].latitude,
+                                               getPoints[position-2].longitude,getPoints[position-1].longitude);
+            //print('distance: ${distance.toString()}');
+            setnewDistance = distance;
+
+            //print('Time $getTime');
+
+            if(getDistances.length > 1){
+              double time = getTime / 3600;
+              int position = getDistances.length;
+              double speed = calculateSpeed(getDistances[position-2], getDistances[position-1], time);
+
+              print('Speed: $speed');
+            }
+          }
+        }
+
+        // TODO: validar con variable bool si el cronometro esta corriendo para agregar los datos a las respectivas listas
         print("latitude location: $getLatitude");
         print("longitude location: $getLongitude");
       }
@@ -81,10 +162,10 @@ class LocationProvider extends ChangeNotifier{
     return result;
   }
 
-  double calculateSpeed (double distance, double time){
-    // v = x*t
+  double calculateSpeed (double initialDistance,double endlDistance , double time){
+    // v = x/t
 
-    double speed = distance * time;
+    double speed = (endlDistance - initialDistance) / time;
     return speed;
   }
 

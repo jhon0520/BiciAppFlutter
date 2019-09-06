@@ -1,3 +1,4 @@
+import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +12,13 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider location = Provider.of<LocationProvider>(context);
-
     LatLng getlocation = LatLng(location.getLatitude,location.getLongitude);
-    print('print map $getlocation');
 
+    if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
+      location.getPosition();
+    } 
 
     return FlutterMap(
       options: MapOptions(
@@ -25,7 +28,7 @@ class MapView extends StatelessWidget {
       layers: [
         _crearMapa(),
         _drawMarker(getlocation),
-        _drawPolyline(),
+        _drawPolyline(location),
       ],
       
     );
@@ -60,12 +63,14 @@ class MapView extends StatelessWidget {
     return MarkerLayerOptions(markers: markers);
   }
 
-  PolylineLayerOptions _drawPolyline(){
-    var points = <LatLng>[
-      LatLng(3.353732, -76.523345),
-      LatLng(3.354476, -76.523455),
-      LatLng(3.354392, -76.522335),
-    ];
+  PolylineLayerOptions _drawPolyline(LocationProvider location){
+    // var points = <LatLng>[
+    //   LatLng(3.353732, -76.523345),
+    //   LatLng(3.354476, -76.523455),
+    //   LatLng(3.354392, -76.522335),
+    // ];
+
+    final points = location.getPoints;
 
     return PolylineLayerOptions( polylines: [
               Polyline(points: points,strokeWidth: 4.0,color: Colors.purple),

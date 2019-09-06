@@ -21,14 +21,6 @@ class RoutinePage extends StatelessWidget {
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
 
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
-    bool _getposition = geoposition.getisLocated;
-
-    if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 ){
-      geoposition.getPosition();
-      //_getposition = false;
-      //geoposition.isLocatedChanged = false;
-    }
-
 
     return Column(
       children: <Widget>[
@@ -41,9 +33,9 @@ class RoutinePage extends StatelessWidget {
         SizedBox(height: 20),
         _timerText(timer),
         //SizedBox(height: 50),
-        _information(),
+        _information(geoposition),
         //SizedBox(height: 50),
-        _inputButtoms(timer),
+        _inputButtoms(timer, geoposition),
         //Text(geoposition.getPosition.toString()),
         //Text('$position ${geoposition.userLocation.toString()}'),
         Text("latitude location: ${geoposition.getLatitude}"),
@@ -98,17 +90,17 @@ class RoutinePage extends StatelessWidget {
           );
   }
 
-  Widget _information(){
+  Widget _information(LocationProvider geoposition){
     return Container(
       child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('0.0 Km',
+              Text('${geoposition.getDistance} Km',
               style: TextStyle(fontSize: 25)),
               SizedBox(width: 100,),
-              Text('0.0 Km/h',
+              Text('${geoposition.getVelocity} Km/h',
               style: TextStyle(fontSize: 25)),
             ],
           ),
@@ -128,7 +120,7 @@ class RoutinePage extends StatelessWidget {
     );
   }
 
-  Widget _inputButtoms(ChronometerProvider timer){
+  Widget _inputButtoms(ChronometerProvider timer, LocationProvider geoposition){
     return Center(          
           child: Column(            
             children: <Widget>[
@@ -136,12 +128,17 @@ class RoutinePage extends StatelessWidget {
                 child: Icon(timer.isStart ? Icons.play_arrow : Icons.stop),
                 onPressed: (){
                   timer.startStopButtonPressed();
+                  geoposition.setisStarted = true;
+                  
                 },
               ),
               RaisedButton(
                 child: Text('Reset'),
                 onPressed: (){
                   timer.resetButtonPressed();
+                  geoposition.setisStarted = false;
+                  geoposition.restarted();
+                  
                 },
               ),
             ],
