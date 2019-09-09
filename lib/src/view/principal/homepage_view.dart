@@ -2,6 +2,13 @@ import 'package:biciapp/src/provider/tabs_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+const List<String> imageSwiper = [
+  "assets/swiper/bg0.jpeg",
+  "assets/swiper/bg1.jpeg",
+  "assets/swiper/bg2.jpeg",
+];
 
 class HomePagePrincipal extends StatelessWidget {
   const HomePagePrincipal({Key key}) : super(key: key);
@@ -17,13 +24,30 @@ class HomePagePrincipal extends StatelessWidget {
     TabsProvider index = Provider.of<TabsProvider>(context);
 
     return Container(
-
-    child: Column(
-        
+      child: Column(  
         children: <Widget>[
-          Text('1',style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          Text('2',style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          Text('3',style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+          Container(
+            height: size.height * 0.5,
+        //     child: Image(
+        //     image: AssetImage(imageSwiper[1]),
+        //     fit: BoxFit.cover,
+        // ),
+            child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return new Image.asset(
+                  imageSwiper[index],
+                  fit: BoxFit.fill,
+                );
+              },
+              
+              scale: 0.8,
+              curve: Curves.ease,
+              autoplay: true,
+              itemCount: imageSwiper.length,
+              pagination: new SwiperPagination(),
+              control: new SwiperControl(),
+            ),
+          ),
           Expanded(child: SizedBox(height: size.height*0.68,)),
           _startButtom(context, dayMode, stylePage, index),
           SizedBox(height: 5.0),
