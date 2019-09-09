@@ -31,15 +31,14 @@ class RoutinePage extends StatelessWidget {
         SizedBox(height: 20),
         _roadsText(dayMode, stylePage),
         SizedBox(height: 20),
-        _timerText(timer),
+        _timerText(dayMode, stylePage, timer),
         //SizedBox(height: 50),
-        _information(geoposition),
+        _information(dayMode, stylePage, geoposition),
         //SizedBox(height: 50),
-        _inputButtoms(timer, geoposition),
-        //Text(geoposition.getPosition.toString()),
-        //Text('$position ${geoposition.userLocation.toString()}'),
-        Text("latitude location: ${geoposition.getLatitude}"),
-        Text("longitude location: ${geoposition.getLongitude}")
+        _inputButtoms(dayMode, stylePage, timer, geoposition),
+        
+        //Text("latitude location: ${geoposition.getLatitude}"),
+        //Text("longitude location: ${geoposition.getLongitude}")
 
       ],
     );
@@ -79,29 +78,32 @@ class RoutinePage extends StatelessWidget {
       );
     }
 
-  Widget _timerText(ChronometerProvider timer){
+  Widget _timerText(bool dayMode, LoginPageStyleModel stylePage, ChronometerProvider timer){
     return FittedBox(
             fit: BoxFit.none,
             child: Text(
-              //stopwatchText,
               timer.stopwatchText,
-              style: TextStyle(fontSize: 72),
+              style: TextStyle(fontSize: 72,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight)),
             ),
           );
   }
 
-  Widget _information(LocationProvider geoposition){
+  Widget _information(bool dayMode, LoginPageStyleModel stylePage, LocationProvider geoposition){
     return Container(
       child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('${geoposition.getDistance} Km',
-              style: TextStyle(fontSize: 25)),
-              SizedBox(width: 100,),
-              Text('${geoposition.getVelocity} Km/h',
-              style: TextStyle(fontSize: 25)),
+              //.substring(0,6)
+              Text('${geoposition.getDistances[geoposition.getDistances.length-1].toString().substring(0,6)} Km',
+              style: TextStyle(fontSize: 25,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+              Text('${geoposition.getVelocity.toString().substring(0,6)} Km/h',
+              style: TextStyle(fontSize: 25,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
             ],
           ),
           SizedBox(height: 10,),
@@ -109,10 +111,12 @@ class RoutinePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('Distancia',
-              style: TextStyle(fontSize: 25)),
+              style: TextStyle(fontSize: 25,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
               SizedBox(width: 75,),
               Text('Velocidad',
-              style: TextStyle(fontSize: 25)),
+              style: TextStyle(fontSize: 25,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
             ],
           ),
         ],
@@ -120,26 +124,54 @@ class RoutinePage extends StatelessWidget {
     );
   }
 
-  Widget _inputButtoms(ChronometerProvider timer, LocationProvider geoposition){
+  Widget _inputButtoms(bool dayMode, LoginPageStyleModel stylePage, ChronometerProvider timer, LocationProvider geoposition){
     return Center(          
           child: Column(            
             children: <Widget>[
-              RaisedButton(
-                child: Icon(timer.isStart ? Icons.play_arrow : Icons.stop),
-                onPressed: (){
-                  timer.startStopButtonPressed();
-                  geoposition.setisStarted = true;
-                  
-                },
+              SizedBox(height: 10,),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                  colors: <Color>[
+                    Color(0xFF42A5F5),
+                    Color(0xFF1976D2),
+                    Color.fromRGBO(34, 139, 134, 100.0),
+                  ],
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: MaterialButton(
+                    padding: EdgeInsets.symmetric(horizontal: 50.0,),
+                    onPressed: (){
+                      timer.startStopButtonPressed();
+                      geoposition.setisStarted = true;
+                    },
+                    child: Icon((timer.isStart ? Icons.play_arrow : Icons.pause),
+                           color: (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight),
+                    ),
+                ),
               ),
-              RaisedButton(
-                child: Text('Reset'),
-                onPressed: (){
-                  timer.resetButtonPressed();
-                  geoposition.setisStarted = false;
-                  geoposition.restarted();
-                  
-                },
+              SizedBox(height: 10,),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                  colors: <Color>[
+                    Color(0xFF42A5F5),
+                    Color(0xFF1976D2),
+                    Color.fromRGBO(34, 139, 134, 100.0),
+                  ],
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: MaterialButton(
+                    padding: EdgeInsets.symmetric(horizontal: 50.0,),
+                    onPressed: (){
+                      timer.resetButtonPressed();
+                      geoposition.setisStarted = false;
+                      geoposition.restarted();
+                    },
+                    child: Icon(Icons.stop,
+                           color: (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight),
+                    ),
+                ),
               ),
             ],
           ),

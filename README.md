@@ -18,3 +18,6 @@ for this proyect we used next plugins
 
   flutter_map: 0.7.1
   https://pub.dev/packages/flutter_map
+
+  flutter_swiper: 1.1.6
+  https://pub.dev/packages/flutter_swiper

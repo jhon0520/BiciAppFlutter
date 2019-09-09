@@ -25,7 +25,6 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
     if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && !timer.isStart && geoposition.getisStarted){
       geoposition.getPosition();
-      //geoposition.setTime = timer.stopwatchText;
     } 
 
     Size size = MediaQuery.of(context).size;

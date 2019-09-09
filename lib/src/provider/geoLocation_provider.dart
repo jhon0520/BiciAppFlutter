@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:biciapp/src/provider/chronometer_provider.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:location/location.dart';
 import 'package:latlong/latlong.dart';
@@ -14,9 +14,9 @@ class LocationProvider extends ChangeNotifier{
   bool _isStarted = false;
 
   List<LatLng> _listofPoints = <LatLng>[];
-  List<double> _listofDistances = <double>[];
+  List<double> _listofDistances = <double>[0.00001];
  
-  double _velocity = 0.0;
+  double _velocity = 0.00001;
   double _distance = 0.0;
 
   double _time = 0.0;
@@ -73,7 +73,8 @@ class LocationProvider extends ChangeNotifier{
   void restarted (){
     getPoints.clear();
     getDistances.clear();
-    setNewVelocity = 0.0;
+    setnewDistance = 0.00001;
+    setNewVelocity = 0.00001;
   }
 
   set setnewDistance (double newDistance){
@@ -115,21 +116,19 @@ class LocationProvider extends ChangeNotifier{
             double distance = calculateDistance(getPoints[position-2].latitude,getPoints[position-1].latitude,
                                                getPoints[position-2].longitude,getPoints[position-1].longitude);
             //print('distance: ${distance.toString()}');
-            setnewDistance = distance;
+            setnewDistance = getDistances[position-1] + distance;
 
             //print('Time $getTime');
-
+            print('Distance Length ${getDistances.length}');
             if(getDistances.length > 1){
-              double time = getTime / 3600;
+              double time = 10 / 3600;
               int position = getDistances.length;
               double speed = calculateSpeed(getDistances[position-2], getDistances[position-1], time);
-
+              setVelocityChanged = speed;
               print('Speed: $speed');
             }
           }
         }
-
-        // TODO: validar con variable bool si el cronometro esta corriendo para agregar los datos a las respectivas listas
         print("latitude location: $getLatitude");
         print("longitude location: $getLongitude");
       }
