@@ -221,8 +221,7 @@ class LoginPageView extends StatelessWidget {
               textColor: dayMode ? stylePage.colorTextDay : stylePage.colorTextNight,
               child: Text('Registrate'),
               onPressed: () {
-                print('holasssssssssss');
-                Navigator.pushNamed(context, 'registro');
+              Navigator.pushNamed(context, 'register');
               },
             ),
           ],

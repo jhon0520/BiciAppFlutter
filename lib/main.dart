@@ -1,3 +1,4 @@
+import 'package:biciapp/src/page/register_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:biciapp/src/page/login_page.dart';
@@ -35,9 +36,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'biciapps App',
-        initialRoute: 'principal',
+        initialRoute: 'login',
         routes: {          
           'login' : (context) => LoginPage(),
+          'register' : (context) => RegisterPage(),
           'principal' : (context) => PrincipalPage()
         },
       ),

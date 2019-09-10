@@ -6,7 +6,7 @@ import 'package:biciapp/src/global/wallpaper_global.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/view/principal/principalPage_view.dart';
-
+import 'package:flutter/services.dart';
 
 class PrincipalPage extends StatefulWidget {
   PrincipalPage({Key key}) : super(key: key);
@@ -15,26 +15,35 @@ class PrincipalPage extends StatefulWidget {
 }
 
 class _PrincipalPageState extends State<PrincipalPage> {
-
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     // Get location on all pages
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
 
-    if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && !timer.isStart && geoposition.getisStarted){
+    if ((int.parse(timer.stopwatchText.substring(6, 8)) % 10) == 0 &&
+        !timer.isStart &&
+        geoposition.getisStarted) {
       geoposition.getPosition();
-    } 
+    }
 
     Size size = MediaQuery.of(context).size;
-    SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
+    SwitchAppbarProvider dayModeProvider =
+        Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
     LoginPageStyleModel stylePage = LoginPageStyleModel();
 
-      return Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Login page'),
+        title: Container(          
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Icon(Icons.directions_bike), SizedBox(width: 5), Text('BiciApp')],
+          ),
+        ),
         centerTitle: true,
         actions: <Widget>[
           AppbarGlobal(),

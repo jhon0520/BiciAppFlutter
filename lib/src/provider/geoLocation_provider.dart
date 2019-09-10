@@ -116,7 +116,8 @@ class LocationProvider extends ChangeNotifier{
             double distance = calculateDistance(getPoints[position-2].latitude,getPoints[position-1].latitude,
                                                getPoints[position-2].longitude,getPoints[position-1].longitude);
             //print('distance: ${distance.toString()}');
-            setnewDistance = getDistances[position-1] + distance;
+            print(getDistances.length);
+            setnewDistance = (getDistances[getDistances.length-1] + distance);
 
             //print('Time $getTime');
             print('Distance Length ${getDistances.length}');
@@ -124,6 +125,9 @@ class LocationProvider extends ChangeNotifier{
               double time = 10 / 3600;
               int position = getDistances.length;
               double speed = calculateSpeed(getDistances[position-2], getDistances[position-1], time);
+              if(speed == 0.0){
+                speed= 0.00001;
+              }
               setVelocityChanged = speed;
               print('Speed: $speed');
             }

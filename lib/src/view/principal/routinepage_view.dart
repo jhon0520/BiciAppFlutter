@@ -3,6 +3,7 @@ import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/utils/alert.dart';
 import 'package:flutter/material.dart';
 
 class RoutinePage extends StatelessWidget {
@@ -35,7 +36,7 @@ class RoutinePage extends StatelessWidget {
         //SizedBox(height: 50),
         _information(dayMode, stylePage, geoposition),
         //SizedBox(height: 50),
-        _inputButtoms(dayMode, stylePage, timer, geoposition),
+        _inputButtoms(context, dayMode, stylePage, timer, geoposition),
         
         //Text("latitude location: ${geoposition.getLatitude}"),
         //Text("longitude location: ${geoposition.getLongitude}")
@@ -124,7 +125,7 @@ class RoutinePage extends StatelessWidget {
     );
   }
 
-  Widget _inputButtoms(bool dayMode, LoginPageStyleModel stylePage, ChronometerProvider timer, LocationProvider geoposition){
+  Widget _inputButtoms(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, ChronometerProvider timer, LocationProvider geoposition){
     return Center(          
           child: Column(            
             children: <Widget>[
@@ -164,9 +165,10 @@ class RoutinePage extends StatelessWidget {
                   child: MaterialButton(
                     padding: EdgeInsets.symmetric(horizontal: 50.0,),
                     onPressed: (){
-                      timer.resetButtonPressed();
-                      geoposition.setisStarted = false;
-                      geoposition.restarted();
+                      showAlertExit(context);
+                      // timer.resetButtonPressed();
+                      // geoposition.setisStarted = false;
+                      // geoposition.restarted();
                     },
                     child: Icon(Icons.stop,
                            color: (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight),
