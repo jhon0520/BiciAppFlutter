@@ -1,5 +1,6 @@
 import 'package:biciapp/src/view/map/map_view.dart';
 import 'package:biciapp/src/view/principal/routinepage_view.dart';
+import 'package:biciapp/src/view/progress/progress_view.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
@@ -26,8 +27,7 @@ class PrincipalPageView extends StatelessWidget {
     final _pageOptions = [
       HomePagePrincipal(),
       MapView(),
-      Text('3'),
-      //Prueba
+      ProgressPage(),
       RoutinePage(),
     ];
 
@@ -53,8 +53,8 @@ class PrincipalPageView extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-          icon: Icon(Icons.image),
-          title: Text('Incio'),
+          icon: Icon(Icons.home),
+          title: Text('Inicio'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.room),

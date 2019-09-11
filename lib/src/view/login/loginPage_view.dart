@@ -165,12 +165,7 @@ class LoginPageView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF42A5F5),
-              Color(0xFF1976D2),
-              Color.fromRGBO(34, 139, 134, 100.0),
-              //Color(0xFF0D47A1),
-            ],
+            colors: (dayMode ? stylePage.buttomGradientColorsDay : stylePage.buttomGradientColorsNight),
           ),
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: MaterialButton(
@@ -189,7 +184,8 @@ class LoginPageView extends StatelessWidget {
           
         },
         child: Text('Ingresar',
-              style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+              //style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+              style: TextStyle(color: stylePage.colorTextButtom,
               fontSize: 20)
         ),
       ),

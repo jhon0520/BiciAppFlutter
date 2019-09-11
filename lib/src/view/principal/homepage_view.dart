@@ -5,9 +5,12 @@ import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 const List<String> imageSwiper = [
-  "assets/swiper/bg0.jpeg",
-  "assets/swiper/bg1.jpeg",
-  "assets/swiper/bg2.jpeg",
+  "assets/swiper/Slider00.png",
+  "assets/swiper/Slider01.png",
+  "assets/swiper/Slider02.png",
+  "assets/swiper/Slider04.png",
+  "assets/swiper/Slider06.png",
+  "assets/swiper/Slider07.png",
 ];
 
 class HomePagePrincipal extends StatelessWidget {
@@ -24,30 +27,10 @@ class HomePagePrincipal extends StatelessWidget {
     TabsProvider index = Provider.of<TabsProvider>(context);
 
     return Container(
+      padding: EdgeInsets.all(15),
       child: Column(  
         children: <Widget>[
-          Container(
-            height: size.height * 0.5,
-        //     child: Image(
-        //     image: AssetImage(imageSwiper[1]),
-        //     fit: BoxFit.cover,
-        // ),
-            child: Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return new Image.asset(
-                  imageSwiper[index],
-                  fit: BoxFit.fill,
-                );
-              },
-              
-              scale: 0.8,
-              curve: Curves.ease,
-              autoplay: true,
-              itemCount: imageSwiper.length,
-              pagination: new SwiperPagination(),
-              control: new SwiperControl(),
-            ),
-          ),
+          _swiperContent(size),
           Expanded(child: SizedBox(height: size.height*0.68,)),
           _startButtom(context, dayMode, stylePage, index),
           SizedBox(height: 5.0),
@@ -58,16 +41,35 @@ class HomePagePrincipal extends StatelessWidget {
     );
   }
 
+  Widget _swiperContent (Size size){
+    return Container(
+            height: size.height * 0.5,
+            child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return new Image.asset(
+                  imageSwiper[index],
+                  fit: BoxFit.fill,
+                );
+              },
+              
+              scale: 0.8,
+              autoplayDelay: 5000,
+              curve: Curves.ease,
+              autoplay: true,
+              itemCount: imageSwiper.length,
+              pagination: SwiperPagination(),
+              control: SwiperControl(
+                color: Colors.white
+              ),
+            ),
+          );
+  }
+
     Widget _startButtom(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, TabsProvider tabIndex) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF42A5F5),
-              Color(0xFF1976D2),
-              Color.fromRGBO(34, 139, 134, 100.0),
-              //Color(0xFF0D47A1),
-            ],
+            colors: (dayMode ? stylePage.buttomGradientColorsDay : stylePage.buttomGradientColorsNight),
           ),
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: MaterialButton(
@@ -76,7 +78,7 @@ class HomePagePrincipal extends StatelessWidget {
         tabIndex.pageSelectedChange = 3;
         },
         child: Text('Iniciar Recorrido',
-              style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+              style: TextStyle(color: (dayMode ? stylePage.colorTextButtom : stylePage.colorTextNight),
               fontSize: 20)
         ),
       ),
@@ -87,19 +89,16 @@ class HomePagePrincipal extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF42A5F5),
-              Color(0xFF1976D2),
-              Color.fromRGBO(34, 139, 134, 100.0),
-              //Color(0xFF0D47A1),
-            ],
+            colors: (dayMode ? stylePage.buttomGradientColorsDay : stylePage.buttomGradientColorsNight),
           ),
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 70.0,),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushNamed(context, 'rodinformation');
+        },
         child: Text('Redime tus Roads',
-              style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+              style: TextStyle(color: (dayMode ? stylePage.colorTextButtom : stylePage.colorTextNight),
               fontSize: 20)
         ),
       ),

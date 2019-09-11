@@ -32,7 +32,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
     Size size = MediaQuery.of(context).size;
     SwitchAppbarProvider dayModeProvider =
-        Provider.of<SwitchAppbarProvider>(context);
+    Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
     LoginPageStyleModel stylePage = LoginPageStyleModel();
 
@@ -41,7 +41,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
         title: Container(          
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Icon(Icons.directions_bike), SizedBox(width: 5), Text('BiciApp')],
+              children: <Widget>[Icon(Icons.directions_bike), SizedBox(width: 5), Text('RodApp')],
           ),
         ),
         centerTitle: true,
@@ -53,7 +53,6 @@ class _PrincipalPageState extends State<PrincipalPage> {
         fit: StackFit.expand,
         children: <Widget>[
           WallpaperGlobal(),
-          //LoginPageView(),
           PrincipalPageView(size: size, dayMode: dayMode, stylePage: stylePage),
         ],
       ),
