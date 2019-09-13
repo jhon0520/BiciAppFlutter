@@ -1,6 +1,7 @@
 import 'package:biciapp/src/page/historylaps_page.dart';
 import 'package:biciapp/src/page/register_page.dart';
 import 'package:biciapp/src/page/rodinformation_page.dart';
+import 'package:biciapp/src/page/rodreedem_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:biciapp/src/page/login_page.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
           'register' : (context) => RegisterPage(),
           'principal' : (context) => PrincipalPage(),
           'rodinformation' : (context) => RodInformationPage(),
-          'historylaps' : (context) => HistoryLapsPage()
+          'historylaps' : (context) => HistoryLapsPage(),
+          'rodreedem' : (context) => RodReedemPage()
         },
       ),
     );

@@ -29,19 +29,23 @@ class _HistoryLapsViewState extends State<HistoryLapsView> {
       dropdownPosition = int.parse(dropdownValue.substring(0,1).toString());
     }
 
-    return Container(
-      padding: EdgeInsets.all(50),
-      child: Column(
-        children: <Widget>[
-        Text('Historial de recorrido', 
-              style: TextStyle(fontSize: 20, fontFamily: 'bold',
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight)),
-              ),
-              SizedBox(height: 30,),
-              _dropDownButton(context, dayMode, stylePage),
-              SizedBox(height: 30,),
-              _drawMap(dayMode, dropdownPosition),
-        ],
+    return SingleChildScrollView(
+          child: Container(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          children: <Widget>[
+          Text('Historial de recorrido', 
+                style: TextStyle(fontSize: 20, fontFamily: 'bold',
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight)),
+                ),
+                SizedBox(height: 30,),
+                _dropDownButton(context, dayMode, stylePage),
+                SizedBox(height: 30,),
+                _drawMap(dayMode, dropdownPosition),
+                SizedBox(height: 30,),
+                _informationText(context, dayMode, stylePage, dropdownPosition)
+          ],
+        ),
       ),
     );
   }
@@ -155,15 +159,86 @@ class _HistoryLapsViewState extends State<HistoryLapsView> {
       LatLng(3.354404, -76.520375),
       LatLng(3.354863, -76.520381),
       LatLng(3.355202, -76.520375),
-      LatLng(3.355613, -76.520378),
-      LatLng(3.355876, -76.520386),
-      LatLng(3.356180, -76.520389),
+      
     ];
     }
     
     return PolylineLayerOptions( polylines: [
               Polyline(points: points,strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
             ],);
+  }
+
+  Widget _informationText(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, int dropDownPosition){
+
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              SizedBox(width: 50,),
+              Text('Kilometros Recorridos',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+
+              Text('Duración',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+            ],
+          ),
+
+          SizedBox(height: 10,),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 100,),
+              Text('1 Km',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 100,),
+
+              Text('00:3:00',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+            ],
+          ),
+
+          SizedBox(height: 30,),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 100,),
+              Text('Roads',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+
+              SizedBox(width: 50,),
+
+              Text('Velocidad promedio',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+            ],
+          ),
+
+          SizedBox(height: 10,),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 100,),
+              Text('1 Km',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 100,),
+
+              Text('5 km/h',
+              style: TextStyle(fontSize: 12,
+              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+              SizedBox(width: 50,),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
 }

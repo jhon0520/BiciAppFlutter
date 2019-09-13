@@ -4,13 +4,21 @@ import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-const List<String> imageSwiper = [
+const List<String> imageSwiper_night = [
   "assets/swiper/Slider00.png",
   "assets/swiper/Slider01.png",
   "assets/swiper/Slider02.png",
+  "assets/swiper/Slider03.png",
   "assets/swiper/Slider04.png",
-  "assets/swiper/Slider06.png",
-  "assets/swiper/Slider07.png",
+  "assets/swiper/Slider05.png",
+];
+const List<String> imageSwiper_day = [
+  "assets/swiper/Slider0.png",
+  "assets/swiper/Slider1.png",
+  "assets/swiper/Slider2.png",
+  "assets/swiper/Slider3.png",
+  "assets/swiper/Slider4.png",
+  "assets/swiper/Slider5.png",
 ];
 
 class HomePagePrincipal extends StatelessWidget {
@@ -30,7 +38,7 @@ class HomePagePrincipal extends StatelessWidget {
       padding: EdgeInsets.all(15),
       child: Column(  
         children: <Widget>[
-          _swiperContent(size),
+          _swiperContent(size, dayMode),
           Expanded(child: SizedBox(height: size.height*0.68,)),
           _startButtom(context, dayMode, stylePage, index),
           SizedBox(height: 5.0),
@@ -41,13 +49,13 @@ class HomePagePrincipal extends StatelessWidget {
     );
   }
 
-  Widget _swiperContent (Size size){
+  Widget _swiperContent (Size size, bool dayMode){
     return Container(
             height: size.height * 0.5,
             child: Swiper(
               itemBuilder: (BuildContext context, int index) {
                 return new Image.asset(
-                  imageSwiper[index],
+                  (dayMode ? imageSwiper_day[index] : imageSwiper_night[index]),
                   fit: BoxFit.fill,
                 );
               },
@@ -56,7 +64,7 @@ class HomePagePrincipal extends StatelessWidget {
               autoplayDelay: 5000,
               curve: Curves.ease,
               autoplay: true,
-              itemCount: imageSwiper.length,
+              itemCount: (dayMode ? imageSwiper_day.length : imageSwiper_night.length),
               pagination: SwiperPagination(),
               control: SwiperControl(
                 color: Colors.white
@@ -95,7 +103,8 @@ class HomePagePrincipal extends StatelessWidget {
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 70.0,),
         onPressed: (){
-          Navigator.pushNamed(context, 'rodinformation');
+          // Navigator.pushNamed(context, 'rodinformation');
+          Navigator.pushNamed(context, 'rodreedem');
         },
         child: Text('Redime tus Roads',
               style: TextStyle(color: (dayMode ? stylePage.colorTextButtom : stylePage.colorTextNight),
