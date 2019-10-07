@@ -9,31 +9,42 @@ class UserDataAPI extends ChangeNotifier{
   UserModel _userModel;
   http.Response _response;
 
-  String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
+  //String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
+  //String url = 'http://157.230.83.235:3000/api/validateUser';
+  String url = 'http://192.168.1.51:3000/api/validateUser';
 
-   UserModel get userModel => _userModel;
+  UserModel get userModel => _userModel;
 
-  Future<UserModel> apiRequest (String userName, String password) async{
-
-    if( userName == null || password == null)
-    return _userModel = UserModel(ok: false, usuario: null);
-
-    _response = await http.post(url, body: {"nickName": userName,"contrasena" : password});
-    // print(_response.statusCode);
-    // print(_response.body);
-    if(_response.statusCode != 200){
-      if(_response.statusCode == 400){
-        _userModel = UserModel(ok: false, usuario: null);
-        return _userModel;
-      }
-      
-    }
-    _userModel = userModelFromJson(_response.body);
-    return _userModel;
-
+  set setUserModel (UserModel newUserModel){
+    _userModel = newUserModel;
+    notifyListeners();
   }
 
-  String biciapp (String a, String b){
-    return a + b;
+  Future<UserModel> apiRequest (String email, String password) async{
+
+    if( email == null || password == null)
+    //return _userModel = UserModel(ok: false, usuario: null);
+
+    //_response = await http.post(url, body: {"nickName": email,"contrasena" : password});
+    print('email: $email - password: $password');
+
+    _response = await http.post(url, body: {"email": email,"password" : password});
+    // _response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+     //print(_response.statusCode);
+     //print(_response.body);
+     UserModel userModel;
+    if(_response.statusCode != 200){
+      if(_response.statusCode == 404){
+        userModel = UserModel(response: false, message: null);
+        return userModel;
+      }      
+    }
+
+    userModel = userModelFromJson(_response.body);
+    userModel.setResponse = true;
+    // UserModel(response: true);
+    setUserModel = userModel;
+    return userModel;
+
   }
 }

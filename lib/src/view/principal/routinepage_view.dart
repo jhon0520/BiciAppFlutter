@@ -133,9 +133,7 @@ class RoutinePage extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                  colors: (dayMode ? stylePage.buttomGradientColorsDay : stylePage.buttomGradientColorsNight
-                  ),
-                  ),
+                  colors: (dayMode ? stylePage.buttomGradientColorsDay : stylePage.buttomGradientColorsNight),),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: MaterialButton(
                     padding: EdgeInsets.symmetric(horizontal: 50.0,),

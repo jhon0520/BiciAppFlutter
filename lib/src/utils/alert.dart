@@ -40,11 +40,41 @@ void showAlertExit (BuildContext context){
           FlatButton(
             child: Text('ok'),
             onPressed: (){
+              final timeNow = new DateTime.now();
+              print('Date Time = ${timeNow.toString()}');
               timer.resetButtonPressed();
               geoposition.setisStarted = false;
               geoposition.restarted();
               index.pageSelectedChange = 0;
               Navigator.of(context, rootNavigator: true).pop('principal');
+            },
+          ),
+          FlatButton(
+            child: Text('cancel'),
+            onPressed: ()=> Navigator.of(context).pop(),
+          ),
+        ],
+      );
+    }
+  );
+}
+
+void showAlerttodolist (BuildContext context){
+  
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Ten cuidado'),
+        // backgroundColor: Colors.red,
+        contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
+        content: Text('Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('ok'),
+            onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, 'nighttodolist');
             },
           ),
           FlatButton(

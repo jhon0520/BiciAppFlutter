@@ -1,9 +1,14 @@
+import 'package:biciapp/src/provider/register_provider.dart';
 import 'package:biciapp/src/utils/alert.dart';
-import 'package:biciapp/src/view/login/loginPage_view.dart';
+
 import 'package:flutter/material.dart';
+
+import 'package:intl/intl.dart';
 
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+
+RegisterProvider createUserRequest = new RegisterProvider();
 
 String firstName;
 String secondName;
@@ -12,6 +17,10 @@ String secondLastName;
 String email;
 String nickName;
 String password;
+String birthDay;
+int weight;
+int age;
+int height;
 
 class RegisterPageView extends StatelessWidget {
   const RegisterPageView({Key key}) : super(key: key);
@@ -23,6 +32,9 @@ class RegisterPageView extends StatelessWidget {
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
     LoginPageStyleModel stylePage = LoginPageStyleModel();
+
+    RegisterProvider registerProvider = Provider.of<RegisterProvider>(context);
+    String birthDay = registerProvider.getdateNow;
 
     return SingleChildScrollView(
       child: Column(
@@ -54,11 +66,19 @@ class RegisterPageView extends StatelessWidget {
                 SizedBox(height: 5.0),
                 _emailTextField(dayMode, stylePage),
                 SizedBox(height: 5.0),
-                _userNameTextField(dayMode, stylePage),
+                _nickNameTextField(dayMode, stylePage),
                 SizedBox(height: 5.0),
                 _passwordTextField(dayMode, stylePage),
                 SizedBox(height: 20.0),
-                _registerButton(context, dayMode, stylePage),
+                _showDatePicker(context, dayMode, stylePage, registerProvider, birthDay),
+                SizedBox(height: 10.0),
+                _weightText(dayMode, stylePage),
+                SizedBox(height: 10.0),
+                _ageText(dayMode, stylePage),
+                SizedBox(height: 10.0),
+                _height(dayMode, stylePage),
+                SizedBox(height: 20.0),
+                _registerButton(context, dayMode, stylePage, registerProvider),
               ],
             ),
           )
@@ -278,12 +298,12 @@ class RegisterPageView extends StatelessWidget {
     );
   }
 
-  Widget _userNameTextField(bool dayMode, LoginPageStyleModel stylePage) {
+  Widget _nickNameTextField(bool dayMode, LoginPageStyleModel stylePage) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
         keyboardType: TextInputType.text,
-        onChanged: (value) => userName=value,
+        onChanged: (value) => nickName = value,
         cursorColor:
             (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
         style: TextStyle(
@@ -325,7 +345,7 @@ class RegisterPageView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
         keyboardType: TextInputType.text,
-        onChanged: (value) => password=value,
+        onChanged: (value) => password = value,
         cursorColor:
             (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
         style: TextStyle(
@@ -362,7 +382,163 @@ class RegisterPageView extends StatelessWidget {
     );
   }
 
-  Widget _registerButton(BuildContext context, bool dayMode, LoginPageStyleModel stylePage) {
+  Widget _showDatePicker(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, RegisterProvider registerProvider, String dateNow){
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Fecha de nacimiento.',style: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+          ),
+          FlatButton(
+              color: Colors.transparent,
+              textColor: dayMode ? stylePage.colorTextDay : stylePage.colorTextNight,
+              child: Text('$dateNow'),
+              onPressed: () async {
+                DateTime dateSelected = await registerProvider.selecDate(context);
+                registerProvider.setDatePicked = DateFormat('yyyy-MM-dd').format(dateSelected);
+                birthDay = DateFormat('yyyy-MM-dd').format(dateSelected);
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _weightText(bool dayMode, LoginPageStyleModel stylePage){
+
+      return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) => weight = int.parse(value),
+        cursorColor:
+            (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+        style: TextStyle(
+            color:
+                (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight)),
+        decoration: InputDecoration(
+          hintText: 'Peso en Kg',
+          labelText: 'Peso',
+          labelStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+          hintStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+
+          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+          //Cambio de color cuando la barra inferior del TextField esta seleccionada
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+        ),
+      ),
+    );
+
+  }
+
+  Widget _ageText(bool dayMode, LoginPageStyleModel stylePage){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) => age = int.parse(value),
+        cursorColor:
+            (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+        style: TextStyle(
+            color:
+                (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight)),
+        decoration: InputDecoration(
+          hintText: 'Edad',
+          labelText: 'Edad',
+          labelStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+          hintStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+
+          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+          //Cambio de color cuando la barra inferior del TextField esta seleccionada
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+        ),
+      ),
+    );
+  }
+
+  Widget _height(bool dayMode, LoginPageStyleModel stylePage){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) => height = int.parse(value),
+        cursorColor:
+            (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
+        style: TextStyle(
+            color:
+                (dayMode ? stylePage.colorIconsDay : stylePage.colorIconNight)),
+        decoration: InputDecoration(
+          hintText: 'Altura en centimetros.',
+          labelText: 'Altura',
+          labelStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+          hintStyle: TextStyle(
+              color: (dayMode
+                  ? stylePage.colorTextDay
+                  : stylePage.colorTextNight)),
+
+          //Cambio de color cuando la barra inferior del TextField no esta seleccionada
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+          //Cambio de color cuando la barra inferior del TextField esta seleccionada
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: (dayMode
+                      ? stylePage.colorIconsDay
+                      : stylePage.colorIconNight),
+                  style: BorderStyle.solid)),
+        ),
+      ),
+    );
+  }
+
+  Widget _registerButton(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, RegisterProvider registerProvider) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -371,13 +547,32 @@ class RegisterPageView extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 50.0,),
-        onPressed: ()async {
+        onPressed: () async {
+        
+        UserModel response = await createUserRequest.apiRequest(
+          firstName,
+          secondName,
+          firstLastName,
+          secondLastName,
+          email,
+          nickName,
+          password,
+          birthDay,
+          weight,
+          age,
+          height
+        );
 
+           if(response.response){
+             Navigator.of(context, rootNavigator: true).pop('login');
+           }else{
+             showAlert(context, 'Login', 'Credenciales ingresadas incorrectas');
+           }
         // Navigator.pushReplacementNamed(context, 'login');
-        Navigator.of(context, rootNavigator: true).pop('login');
+        // Navigator.of(context, rootNavigator: true).pop('login');
  
         },
-        child: Text('Ingresar',
+        child: Text('Registrar',
               style: TextStyle(color: (dayMode ? stylePage.colorTextButtom : stylePage.colorTextNight),
               fontSize: 20)
         ),

@@ -87,6 +87,19 @@ class LocationProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  Future<LocationData> getLocation () async {
+    await _locationService.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
+
+    bool serviceStatus = await _locationService.serviceEnabled();
+    if(serviceStatus){
+      _permission = await _locationService.requestPermission();
+      if (_permission) {
+        return _location = await _locationService.getLocation();
+      }
+      
+    }
+  }
+
   void getPosition () async {
 
     await _locationService.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
@@ -142,7 +155,7 @@ class LocationProvider extends ChangeNotifier{
 
   double calculateDistance (double initialLatitude, double endLatitude, double initialLongitude, double endLongitude){
 
-    int radius = 6371; // Radius of the earth in km
+    int radius = 6371; // Radius of the earth in metres
     double deltaLatitude = degreeToRadian(endLatitude - initialLatitude);
     double deltaLongitude = degreeToRadian(endLongitude - initialLongitude);
 

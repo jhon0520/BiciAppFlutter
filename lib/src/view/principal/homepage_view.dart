@@ -1,8 +1,14 @@
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/provider/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
+import 'package:biciapp/src/utils/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+import 'package:intl/intl.dart';
 
 const List<String> imageSwiper_night = [
   "assets/swiper/Slider00.png",
@@ -27,6 +33,9 @@ class HomePagePrincipal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    UserDataAPI user = Provider.of<UserDataAPI>(context);
+    WeatherConsulting wheatherProvider = Provider.of<WeatherConsulting>(context);
+
     Size size = MediaQuery.of(context).size;
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
@@ -34,13 +43,15 @@ class HomePagePrincipal extends StatelessWidget {
 
     TabsProvider index = Provider.of<TabsProvider>(context);
 
+    LocationProvider geoLocationProvider = Provider.of<LocationProvider>(context);
+
     return Container(
       padding: EdgeInsets.all(15),
       child: Column(  
         children: <Widget>[
           _swiperContent(size, dayMode),
           Expanded(child: SizedBox(height: size.height*0.68,)),
-          _startButtom(context, dayMode, stylePage, index),
+          _startButtom(context, user, wheatherProvider, dayMode, stylePage, index, geoLocationProvider),
           SizedBox(height: 5.0),
           _reedemersButtom(context, dayMode, stylePage),
           SizedBox(height: 10.0),
@@ -49,7 +60,7 @@ class HomePagePrincipal extends StatelessWidget {
     );
   }
 
-  Widget _swiperContent (Size size, bool dayMode){
+    Widget _swiperContent (Size size, bool dayMode){
     return Container(
             height: size.height * 0.5,
             child: Swiper(
@@ -73,7 +84,7 @@ class HomePagePrincipal extends StatelessWidget {
           );
   }
 
-    Widget _startButtom(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, TabsProvider tabIndex) {
+    Widget _startButtom(BuildContext context, UserDataAPI user, WeatherConsulting wheatherProvider,bool dayMode, LoginPageStyleModel stylePage, TabsProvider tabIndex,LocationProvider geoLocationProvider) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -82,8 +93,24 @@ class HomePagePrincipal extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 75.0,),
-        onPressed: (){
-        tabIndex.pageSelectedChange = 3;
+        onPressed: ()async{
+
+          int time = int.parse(DateFormat('H').format(DateTime.now()));
+
+          //final position = await geoLocationProvider.getLocation();
+          //WeatherModel weatherresponse  = await wheatherProvider.apiRequest(position.latitude, position.longitude);
+
+          WeatherModel weatherresponse = await wheatherProvider.apiRequest(3.4774142, -76.4947062);
+          wheatherProvider.setWeatherModel = weatherresponse;
+
+
+          if(time >= 18 || time < 6){
+           
+            showAlerttodolist(context);
+          }else{
+            tabIndex.pageSelectedChange = 3;
+          }
+        
         },
         child: Text('Iniciar Recorrido',
               style: TextStyle(color: (dayMode ? stylePage.colorTextButtom : stylePage.colorTextNight),

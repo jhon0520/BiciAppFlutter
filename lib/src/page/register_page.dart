@@ -10,7 +10,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login page'),
+        title: Text('Register page'),
         centerTitle: true,
         actions: <Widget>[
           AppbarGlobal(),

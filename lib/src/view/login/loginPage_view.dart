@@ -5,7 +5,7 @@ import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/userdataapi_provider.dart';
 import 'package:biciapp/src/utils/alert.dart';
 
-UserDataAPI api = new UserDataAPI();
+// UserDataAPI api = new UserDataAPI();
 String userName;
 String passWord;
 
@@ -13,7 +13,9 @@ class LoginPageView extends StatelessWidget {
   const LoginPageView({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
+
+    UserDataAPI user = Provider.of<UserDataAPI>(context);
 
     Size size = MediaQuery.of(context).size;
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
@@ -44,7 +46,7 @@ class LoginPageView extends StatelessWidget {
                 SizedBox(height: 20.0),
                 _passwordTextField(dayMode, stylePage),
                 SizedBox(height: 20.0),
-                _loginButton(context, dayMode, stylePage),
+                _loginButton(context, user, dayMode, stylePage),
                 SizedBox(height: 20.0),
                 _forgetPasswordText(context, dayMode, stylePage, size),
                 SizedBox(height: 20.0),
@@ -161,7 +163,7 @@ class LoginPageView extends StatelessWidget {
   }
 
   /// Section to create Buttom to Login
-  Widget _loginButton(BuildContext context, bool dayMode, LoginPageStyleModel stylePage) {
+  Widget _loginButton(BuildContext context, UserDataAPI user,bool dayMode, LoginPageStyleModel stylePage) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -172,16 +174,20 @@ class LoginPageView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 50.0,),
         onPressed: ()async {
 
-            api.apiRequest(userName, passWord).then((response){
+          try {
+            UserModel response = await user.apiRequest(userName, passWord);
 
-            if(response.ok){
-              Navigator.pushNamed(context, 'principal');
-            }else{
-              showAlert(context, 'Login', 'Credenciales ingresadas incorrectas');
-            }
+            user.setUserModel = response;
 
-            });
-          
+              if(response.response){
+               Navigator.pushNamed(context, 'principal');
+              }else{
+                 showAlert(context, 'Login', 'Credenciales ingresadas incorrectas');
+              }
+
+          } catch (e) {
+            showAlert(context, 'Login', 'En estos momentos presentamos problemas con la red.');
+          }
         },
         child: Text('Ingresar',
               //style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),

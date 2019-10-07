@@ -1,7 +1,12 @@
 import 'package:biciapp/src/page/historylaps_page.dart';
+import 'package:biciapp/src/page/night_todolist.dart';
 import 'package:biciapp/src/page/register_page.dart';
 import 'package:biciapp/src/page/rodinformation_page.dart';
 import 'package:biciapp/src/page/rodreedem_page.dart';
+import 'package:biciapp/src/provider/nighthtodolist_provider.dart';
+import 'package:biciapp/src/provider/register_provider.dart';
+import 'package:biciapp/src/provider/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:biciapp/src/page/login_page.dart';
@@ -23,6 +28,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           builder: (_) => SwitchAppbarProvider()
         ),
+        ChangeNotifierProvider(
+          builder: (_) => UserDataAPI(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => WeatherConsulting(),
+        ),
         // TabsButtom Provider
         ChangeNotifierProvider(
           builder: (_) => TabsProvider()
@@ -34,16 +45,23 @@ class MyApp extends StatelessWidget {
         // Location Provider
         ChangeNotifierProvider(
           builder: (_) => LocationProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => RegisterProvider(),
+        ),
+        ChangeNotifierProvider(
+          builder:  (_) => NightTodolistProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'biciapps App',
-        initialRoute: 'principal',
+        initialRoute: 'login',
         routes: {          
           'login' : (context) => LoginPage(),
           'register' : (context) => RegisterPage(),
           'principal' : (context) => PrincipalPage(),
+          'nighttodolist' : (context) => NightTodolistPage(),
           'rodinformation' : (context) => RodInformationPage(),
           'historylaps' : (context) => HistoryLapsPage(),
           'rodreedem' : (context) => RodReedemPage()
