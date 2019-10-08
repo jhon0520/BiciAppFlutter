@@ -16,7 +16,7 @@ class NightTodoListModel {
       NightTodoListModel(id: 3,title: "Presión de las llantas", text: "Recuerda siempre revisar tus llantas antes de cualquier salida que realices en tu bicicleta."),
       NightTodoListModel(id: 4,title: "Frenos", text: "Recuerda revisar los fresnos de tu bicicleta para que evitemos accidentes ya sea con peatones en la vía o algun otro vehiculo."),
       NightTodoListModel(id: 5,title: "hidratación", text: "Recuerda siempre llevar contigo una bebida hidratante."),
-      NightTodoListModel(id: 6,title: "Clima", text: "Si ves que el clima se torna nublado o esta haciendo llovizna, deberias de llevar protección contra la lluvia."),
+      NightTodoListModel(id: 6,title: "Clima", text: "Alista el protector contra la lluvia, es posible que llueva."),
     ];
   }
 }

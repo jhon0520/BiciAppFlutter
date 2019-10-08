@@ -3,6 +3,7 @@ import 'package:biciapp/src/model/nightTodoList/nighttodolist_model.dart';
 import 'package:biciapp/src/provider/nighthtodolist_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
 import 'package:biciapp/src/utils/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,18 @@ class NightTodoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    WeatherConsulting wheatherProvider = Provider.of<WeatherConsulting>(context);
+
+    bool isRain = false;
+    double minTemp = 0;
+
+    WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
+    minTemp = weatherInfo.main.tempMin - 273.15;
+
+    if(weatherInfo.weather[0].main == "Rain" && ( minTemp < 20.0 || minTemp < 22) ){
+     isRain = true;
+    }
 
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
@@ -42,6 +55,8 @@ class NightTodoListView extends StatelessWidget {
               _radioButton5(todoListinformation[4].id, todolistProvider.getGrupValue5, todoListinformation[4].title, todoListinformation[4].text,todolistProvider, dayMode, stylePage),
               //_radioButton6(todoListinformation[5].id, todolistProvider.getGrupValue6, todoListinformation[5].title, todoListinformation[5].text,todolistProvider, dayMode, stylePage),
               //_radioButton7(todoListinformation[6].id, todolistProvider.getGrupValue7, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage),
+              SizedBox(height: 10.0),
+              isRain ? _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage) : null,
               SizedBox(height: 20.0),
               _startButtom(context, dayMode, stylePage, todolistProvider, tabIndexProvider)
             ],
@@ -150,6 +165,23 @@ class NightTodoListView extends StatelessWidget {
   }
 
   Widget _radioButton7 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
+    return Container(
+      child: RadioListTile(
+          value: todoListValue,
+          groupValue: grupValue,
+          title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
+          subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+          onChanged: (value) {
+            checked7 = true;
+            todolistProvider.setGrupValue7 = value;
+          },
+          activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
+          
+        ),
+    );
+  }
+
+  Widget _radioButtonLluvia (int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
     return Container(
       child: RadioListTile(
           value: todoListValue,

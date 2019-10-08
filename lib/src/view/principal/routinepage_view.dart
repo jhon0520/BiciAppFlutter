@@ -12,12 +12,12 @@ class RoutinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
     LoginPageStyleModel stylePage = LoginPageStyleModel();
 
-    TabsProvider index = Provider.of<TabsProvider>(context);
+    //TabsProvider index = Provider.of<TabsProvider>(context);
 
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
 

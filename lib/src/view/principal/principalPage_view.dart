@@ -1,3 +1,4 @@
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:biciapp/src/view/map/map_view.dart';
 import 'package:biciapp/src/view/principal/routinepage_view.dart';
 import 'package:biciapp/src/view/progress/progress_view.dart';
@@ -22,6 +23,8 @@ class PrincipalPageView extends StatelessWidget {
     TabsProvider index = Provider.of<TabsProvider>(context);
     int _selectedTab = index.position;
     int _pageSelected = index.pageSelected;
+
+    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
     
 
     final _pageOptions = [
@@ -49,7 +52,13 @@ class PrincipalPageView extends StatelessWidget {
         unselectedIconTheme: IconThemeData(color: Colors.grey),
         onTap: (value){
           index.positionChange = value;
-          index.pageSelectedChange =value;
+
+          if(value == 0 && locationProvider.getisStarted){
+            index.pageSelectedChange = 3;
+          }else{
+            index.pageSelectedChange = value;
+          }
+          
         },
         items: [
           BottomNavigationBarItem(

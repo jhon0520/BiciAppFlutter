@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonStr
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -20,7 +20,7 @@ class UserModel {
     String email;
     String password;
     String nickName;
-    String birthDay;
+    DateTime birthDay;
     int weight;
     int age;
     int height;
@@ -55,8 +55,6 @@ class UserModel {
         this.message
     });
 
-
-
     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         type: json["type"],
         toursNumbers: json["toursNumbers"],
@@ -69,7 +67,7 @@ class UserModel {
         email: json["email"],
         password: json["password"],
         nickName: json["nickName"],
-        birthDay: json["birthDay"],
+        birthDay: DateTime.parse(json["birthDay"]),
         weight: json["weight"],
         age: json["age"],
         height: json["height"],
@@ -88,20 +86,21 @@ class UserModel {
         "email": email,
         "password": password,
         "nickName": nickName,
-        "birthDay": birthDay,
+        "birthDay": "${birthDay.year.toString().padLeft(4, '0')}-${birthDay.month.toString().padLeft(2, '0')}-${birthDay.day.toString().padLeft(2, '0')}",
         "weight": weight,
         "age": age,
         "height": height,
         "__v": v,
     };
-    
 }
 
 class Route {
     List<double> velocity;
     List<double> distance;
+    int rods;
     String type;
-    List<List<int>> coordinates;
+    List<double> latitude;
+    List<double> longitude;
     String id;
     DateTime routeDate;
     String time;
@@ -110,8 +109,10 @@ class Route {
     Route({
         this.velocity,
         this.distance,
+        this.rods,
         this.type,
-        this.coordinates,
+        this.latitude,
+        this.longitude,
         this.id,
         this.routeDate,
         this.time,
@@ -122,10 +123,12 @@ class Route {
         velocity: List<double>.from(json["velocity"].map((x) => x.toDouble())),
         distance: List<double>.from(json["distance"].map((x) => x.toDouble())),
         type: json["type"],
-        coordinates: List<List<int>>.from(json["coordinates"].map((x) => List<int>.from(x.map((x) => x)))),
+        latitude: List<double>.from(json["latitude"].map((x) => x.toDouble())),
+        longitude: List<double>.from(json["longitude"].map((x) => x.toDouble())),
         id: json["_id"],
         routeDate: DateTime.parse(json["routeDate"]),
         time: json["time"],
+         rods: json["rods"],
         v: json["__v"],
     );
 
@@ -133,10 +136,12 @@ class Route {
         "velocity": List<dynamic>.from(velocity.map((x) => x)),
         "distance": List<dynamic>.from(distance.map((x) => x)),
         "type": type,
-        "coordinates": List<dynamic>.from(coordinates.map((x) => List<dynamic>.from(x.map((x) => x)))),
+        "latitude": List<dynamic>.from(latitude.map((x) => x)),
+        "longitude": List<dynamic>.from(longitude.map((x) => x)),
         "_id": id,
         "routeDate": routeDate.toIso8601String(),
         "time": time,
+        "rods": rods,
         "__v": v,
     };
 }

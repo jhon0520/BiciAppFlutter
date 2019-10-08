@@ -1,11 +1,11 @@
+import 'package:biciapp/src/view/day_todolist/daytodolist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/global/switchappbarbuttom_global.dart';
 import 'package:biciapp/src/global/wallpaper_global.dart';
-import 'package:biciapp/src/view/night_todolist/nighttodolist_view.dart';
 
 
-class NightTodolistPage extends StatelessWidget {
-  const NightTodolistPage({Key key}) : super(key: key);
+class DayTodolistPage extends StatelessWidget {
+  const DayTodolistPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class NightTodolistPage extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           WallpaperGlobal(),
-          NightTodoListView(),
+          DayTodoListView()
         ],
       ),
     );

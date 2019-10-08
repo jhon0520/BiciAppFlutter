@@ -25,8 +25,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
 
     if ((int.parse(timer.stopwatchText.substring(6, 8)) % 10) == 0 &&
-        !timer.isStart &&
-        geoposition.getisStarted) {
+        !timer.isStart && geoposition.getisStarted) {
       geoposition.getPosition();
     }
 

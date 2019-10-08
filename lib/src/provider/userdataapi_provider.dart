@@ -11,7 +11,7 @@ class UserDataAPI extends ChangeNotifier{
 
   //String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
   //String url = 'http://157.230.83.235:3000/api/validateUser';
-  String url = 'http://192.168.1.51:3000/api/validateUser';
+  String url = 'http://192.168.1.53:3000/api/';
 
   UserModel get userModel => _userModel;
 
@@ -28,7 +28,7 @@ class UserDataAPI extends ChangeNotifier{
     //_response = await http.post(url, body: {"nickName": email,"contrasena" : password});
     print('email: $email - password: $password');
 
-    _response = await http.post(url, body: {"email": email,"password" : password});
+    _response = await http.post(url + "validateUser", body: {"email": email,"password" : password});
     // _response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
      //print(_response.statusCode);
      //print(_response.body);
@@ -47,4 +47,26 @@ class UserDataAPI extends ChangeNotifier{
     return userModel;
 
   }
+
+  Future<UserModel> apiUserChanged (String email, String id) async{
+
+    _response = await http.post(url + "changeUserParams", body: {"email": email, "id" : id});
+ 
+     //print(_response.statusCode);
+     //print(_response.body);
+     UserModel userModel;
+    if(_response.statusCode != 200){
+      if(_response.statusCode == 404){
+        userModel = UserModel(response: false, message: null);
+        return userModel;
+      }      
+    }
+
+    userModel = userModelFromJson(_response.body);
+    userModel.setResponse = true;
+
+    return userModel;
+
+  }
+
 }

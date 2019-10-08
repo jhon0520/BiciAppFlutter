@@ -15,6 +15,9 @@ class LocationProvider extends ChangeNotifier{
 
   List<LatLng> _listofPoints = <LatLng>[];
   List<double> _listofDistances = <double>[0.00001];
+  List<double> _listofVelocitys = <double> [0.00001];
+  List<double> _listofLatitude = <double>[];
+  List<double> _listofLongitude = <double> []; 
  
   double _velocity = 0.00001;
   double _distance = 0.0;
@@ -31,8 +34,13 @@ class LocationProvider extends ChangeNotifier{
   bool get getisStarted =>  _isStarted;
   double get getDistance => _distance;
   double get getVelocity => _velocity;
+
   List<LatLng> get getPoints => _listofPoints;
   List<double> get getDistances => _listofDistances;
+  List<double> get getVelocitys => _listofVelocitys;
+  List<double> get getListOfLatitude => _listofLatitude;
+  List<double> get getListOfLongitude => _listofLongitude;
+
   double get getTime => _time;
 
   set latitudeChanged (double newlatitude){
@@ -73,12 +81,30 @@ class LocationProvider extends ChangeNotifier{
   void restarted (){
     getPoints.clear();
     getDistances.clear();
+    getVelocitys.clear();
+    getListOfLatitude.clear();
+    getListOfLongitude.clear();
     setnewDistance = 0.00001;
     setNewVelocity = 0.00001;
   }
 
   set setnewDistance (double newDistance){
     _listofDistances.add(newDistance);
+    notifyListeners();
+  }
+
+  set setnewVelocity (double newVelocity){
+    _listofVelocitys.add(newVelocity);
+    notifyListeners();
+  }
+
+  set setnewLatitude (double newLatitude){
+    _listofLatitude.add(newLatitude);
+    notifyListeners();
+  }
+
+  set setnewLongitude (double newLongitude){
+    _listofLongitude.add(newLongitude);
     notifyListeners();
   }
 
@@ -119,21 +145,23 @@ class LocationProvider extends ChangeNotifier{
 
         if(_isStarted){
           LatLng newposition = LatLng(_location.latitude,_location.longitude);
+          setnewLatitude = _location.latitude;
+          setnewLongitude = _location.longitude;
           setNewPoint = newposition;
-          print('lista de puntos ${getPoints.length }');
+          //print('lista de puntos ${getPoints.length }');
           //print('Puntos posicion uno ${getPoints[0] }');
 
           if(getPoints.length > 1){
             setTime = getTime + 10;
             int position = getPoints.length;
             double distance = calculateDistance(getPoints[position-2].latitude,getPoints[position-1].latitude,
-                                               getPoints[position-2].longitude,getPoints[position-1].longitude);
+                                                getPoints[position-2].longitude,getPoints[position-1].longitude);
             //print('distance: ${distance.toString()}');
             print(getDistances.length);
             setnewDistance = (getDistances[getDistances.length-1] + distance);
 
             //print('Time $getTime');
-            print('Distance Length ${getDistances.length}');
+            //print('Distance Length ${getDistances.length}');
             if(getDistances.length > 1){
               double time = 10 / 3600;
               int position = getDistances.length;
@@ -141,6 +169,7 @@ class LocationProvider extends ChangeNotifier{
               if(speed == 0.0){
                 speed= 0.00001;
               }
+              setnewVelocity = speed;
               setVelocityChanged = speed;
               print('Speed: $speed');
             }
