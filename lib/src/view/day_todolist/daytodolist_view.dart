@@ -54,7 +54,7 @@ class DayTodoListView extends StatelessWidget {
               SizedBox(height: 10.0),
               _radioButton5(todoListinformation[4].id, todolistProvider.getGrupValue5, todoListinformation[4].title, todoListinformation[4].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
-              isRain ? _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage) : null,
+              isRain ? _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage) : Container(child: null,),
               SizedBox(height: 20.0),
               _startButtom(context, dayMode, stylePage, todolistProvider, tabIndexProvider)
             ],

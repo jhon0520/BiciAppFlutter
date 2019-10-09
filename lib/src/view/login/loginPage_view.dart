@@ -180,7 +180,7 @@ class LoginPageView extends StatelessWidget {
             user.setUserModel = response;
 
               if(response.response){
-               Navigator.pushNamed(context, 'principal');
+               Navigator.pushReplacementNamed(context, 'principal');
               }else{
                  showAlert(context, 'Login', 'Credenciales ingresadas incorrectas');
               }

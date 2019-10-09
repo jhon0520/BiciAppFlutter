@@ -4,6 +4,7 @@ import 'package:biciapp/src/page/night_todolist.dart';
 import 'package:biciapp/src/page/register_page.dart';
 import 'package:biciapp/src/page/rodinformation_page.dart';
 import 'package:biciapp/src/page/rodreedem_page.dart';
+import 'package:biciapp/src/provider/historylaps_provider.dart';
 import 'package:biciapp/src/provider/nighthtodolist_provider.dart';
 import 'package:biciapp/src/provider/register_provider.dart';
 import 'package:biciapp/src/provider/routedataapi_provider.dart';
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           builder:  (_) => NightTodolistProvider(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => HistoryLapsProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,122 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
-import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
-  String dropdownValue = 'Selecciona una fecha';
-  int dropdownPosition = 0;
+import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
+import 'package:biciapp/src/provider/historylaps_provider.dart';
+import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/tabs_provider.dart';
+import 'package:biciapp/src/provider/userdataapi_provider.dart';
 
-class HistoryLapsView extends StatefulWidget {
+List<Polyline> listOfPolyline = <Polyline> [];
+
+final colors = [Colors.red, Colors.blue, Colors.purple, Colors.yellow];
+
+class HistoryLapsView extends StatelessWidget {
   const HistoryLapsView({Key key}) : super(key: key);
 
   @override
-  _HistoryLapsViewState createState() => _HistoryLapsViewState();
-}
-
-class _HistoryLapsViewState extends State<HistoryLapsView> {
-  @override
   Widget build(BuildContext context) {
-
+    UserDataAPI userProvider = Provider.of<UserDataAPI>(context);
+    HistoryLapsProvider historyLapsProvider = Provider.of<HistoryLapsProvider>(context);
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
+
     LoginPageStyleModel stylePage = LoginPageStyleModel();
     bool dayMode = dayModeProvider.dayMode;
 
-    if(dropdownValue == 'Selecciona una fecha'){
-      dropdownPosition = 0;
-    }else{
-      //print(int.parse(dropdownValue.substring(0,1).toString()));
-      dropdownPosition = int.parse(dropdownValue.substring(0,1).toString());
-    }
+    UserModel userData = userProvider.userModel;
+    historyLapsProvider.initState(userData);
 
-    return SingleChildScrollView(
-          child: Container(
-        padding: EdgeInsets.all(30),
-        child: Column(
+    int dropDownPosition = historyLapsProvider.getDropDownPosition;
+    LatLng centerMap = LatLng(3.404142, -76.523088);
+
+    return WillPopScope(
+      onWillPop: () async {
+        listOfPolyline.clear();
+        historyLapsProvider.restarted();
+        Navigator.pushReplacementNamed(context, 'principal');
+        return true;
+      },
+      child: SingleChildScrollView(
+        child: Container(
+          //padding: EdgeInsets.all(30),
+          child: Column(
+            children: <Widget>[
+              _titleText(dayMode, stylePage),
+              _crearDropdown(historyLapsProvider),
+              //_createMap(dropDownPosition, centerMap, historyLapsProvider)
+              _drawMap(dayMode, dropDownPosition, centerMap, historyLapsProvider),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _titleText(bool dayMode, LoginPageStyleModel stylePage) {
+    return Container(
+      child: Text(
+        'Historial de recorrido',
+        style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'bold',
+            color:
+                (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight)),
+      ),
+    );
+  }
+
+  Widget _crearDropdown(HistoryLapsProvider historyLapsProvider) {
+    return Container(
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Text('Historial de recorrido', 
-                style: TextStyle(fontSize: 20, fontFamily: 'bold',
-                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight)),
-                ),
-                SizedBox(height: 30,),
-                _dropDownButton(context, dayMode, stylePage),
-                SizedBox(height: 30,),
-                _drawMap(dayMode, dropdownPosition),
-                SizedBox(height: 30,),
-                _informationText(context, dayMode, stylePage, dropdownPosition)
+            SizedBox(width: 30.0),
+            Expanded(
+              child: DropdownButton(
+                value: historyLapsProvider.getOptionSelected,
+                items: getOpcionesDropdown(historyLapsProvider),
+                onChanged: (option) {
+                  listOfPolyline.clear();
+                  historyLapsProvider.setOptionSelected = option;                  
+                  historyLapsProvider.setDropDownPositon = int.parse(option.substring(0,2).toString());
+                  print(historyLapsProvider.getDropDownPosition);
+                },
+              ),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget _dropDownButton (BuildContext context, bool dayMode, LoginPageStyleModel stylePage){
+  List<DropdownMenuItem<String>> getOpcionesDropdown(HistoryLapsProvider historyLapsProvider) {
+    List<DropdownMenuItem<String>> lista = new List();
 
-    return Container(
-      width: 250,
-      // color: Colors.white,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: (dayMode ? Colors.lightBlue : stylePage.colorTextNight),
-        width: 5),
-        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      ),
-      padding: EdgeInsets.all(5),
+    historyLapsProvider.getDropDownListOptios.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder, textAlign: TextAlign.center,),
+        value: poder,
+      ));
+    });
 
-      child: Center(
-              child: DropdownButton<String>(
-          value: dropdownValue,
-          icon: Icon(Icons.keyboard_arrow_down,
-                //color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),),
-                color: Colors.black,),
-          iconSize: 24,
-          elevation: 16,
-          style: TextStyle(
-            // color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight),
-            color: Colors.black,
-          ),
-          underline: Container(
-            height: 2,
-            color: Colors.lightBlue,
-          ),
-          onChanged: (String newValue) {
-            setState(() {
-              dropdownValue = newValue;
-            });
-          },
-          items: <String>['Selecciona una fecha','1. Septimbre 10', '2. Septiembre 11',]
-            .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value,
-                        style: TextStyle(
-                          color: Colors.black)),
-              );
-            })
-            .toList(),
-        ),
-      ),
-    );
+    return lista;
   }
 
-  Widget _drawMap (bool dayMode, int dropDownPosition){
-    var position = LatLng(3.423849,-76.521541);
-    LatLng(3.354404, -76.520375);
-    if(dropDownPosition == 1 || dropDownPosition == 2){
-      position = LatLng(3.354404, -76.520375);
-    }
+  Widget _drawMap (bool dayMode, int dropDownPosition, LatLng centerMap, HistoryLapsProvider historyLapsProvider){
+
     return Container(
       height: 300,
       child: FlutterMap(
         options: MapOptions(
-          // center: LatLng(3.423849,-76.521541),
-          center: position,
-          zoom: 15
+          center: centerMap,
+          zoom: 12
         ),
         layers: [
           _crearMapa(dayMode),
-          // _drawMarker(getlocation),
-          _drawPolyline(dayMode,dropdownPosition),
+          _drawPolyline(dayMode , dropDownPosition, historyLapsProvider),
         ],
         
       ),
@@ -142,103 +141,84 @@ class _HistoryLapsViewState extends State<HistoryLapsView> {
     );
   }
 
-  PolylineLayerOptions _drawPolyline(bool dayMode ,int position){
+    PolylineLayerOptions _drawPolyline(bool dayMode , int dropDownPosition, HistoryLapsProvider historyLapsProvider){
 
-    var points = <LatLng>[];
-    if(position == 1){
-      points = <LatLng>[
-      LatLng(3.354404, -76.520375),
-      LatLng(3.354863, -76.520381),
-      LatLng(3.355202, -76.520375),
-      LatLng(3.355613, -76.520378),
-      LatLng(3.355876, -76.520386),
-      LatLng(3.356180, -76.520389),
-    ];
-    }else if(position == 2){
-      points = <LatLng>[
-      LatLng(3.354404, -76.520375),
-      LatLng(3.354863, -76.520381),
-      LatLng(3.355202, -76.520375),
-      
-    ];
+      List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
+      print('position: $dropDownPosition');
+
+    if( dropDownPosition == 0 ){
+      int index = 0;
+
+      for(index = 0; index < polylineArray.length ; index++){
+        final polyline = Polyline(
+          points: polylineArray[index],
+          //color: Colors.lightBlueAccent,
+          color: colors[index],
+          strokeWidth: 4.0,
+        );
+        listOfPolyline.add(polyline);
+      }
+
+      return PolylineLayerOptions( polylines: listOfPolyline);
+
     }
-    
-    return PolylineLayerOptions( polylines: [
-              Polyline(points: points,strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
-            ],);
+
+    print(polylineArray[dropDownPosition-1]);
+
+    final polyline = Polyline(
+          points: polylineArray[dropDownPosition-1],
+          color: Colors.lightBlueAccent,
+          strokeWidth: 4,
+        );
+      listOfPolyline.add(polyline);
+
+      //listOfPolyline.clear();
+
+    //   var points = <LatLng>[];
+    //   points = <LatLng>[
+    //   LatLng(3.354404, -76.520375),
+    //   LatLng(3.354863, -76.520381),
+    //   LatLng(3.355202, -76.520375),
+    //   LatLng(3.355613, -76.520378),
+    //   LatLng(3.355876, -76.520386),
+    //   LatLng(3.356180, -76.520389),
+    // ];
+    // final polyline = Polyline(points: points, strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white));
+    // listOfPolyline.add(polyline);
+
+        // return PolylineLayerOptions( polylines: [
+        //       Polyline(points: points, strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
+        //     ],);
+
+    return PolylineLayerOptions( polylines: listOfPolyline);
   }
 
-  Widget _informationText(BuildContext context, bool dayMode, LoginPageStyleModel stylePage, int dropDownPosition){
+  List<Polyline> _createPolyline (int dropDownPosition, HistoryLapsProvider historyLapsProvider){
 
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              SizedBox(width: 50,),
-              Text('Kilometros Recorridos',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 50,),
+    List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
 
-              Text('Duración',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 50,),
-            ],
-          ),
+    if( dropDownPosition == 0 ){
+      int index = 0;
 
-          SizedBox(height: 10,),
-          Row(
-            children: <Widget>[
-              SizedBox(width: 100,),
-              Text('1 Km',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 100,),
+      for(index = 0; index < polylineArray.length ; index++){
+        final polyline = Polyline(
+          points: polylineArray[index],
+          color: Colors.lightBlueAccent,
+          strokeWidth: 4,
+        );
+        listOfPolyline.add(polyline);
+      }
+    }
 
-              Text('00:3:00',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 50,),
-            ],
-          ),
+    final polyline = Polyline(
+          points: polylineArray[dropDownPosition],
+          color: Colors.lightBlueAccent,
+          strokeWidth: 4,
+        );
+      listOfPolyline.add(polyline);
 
-          SizedBox(height: 30,),
-          Row(
-            children: <Widget>[
-              SizedBox(width: 100,),
-              Text('Roads',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-
-              SizedBox(width: 50,),
-
-              Text('Velocidad promedio',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 50,),
-            ],
-          ),
-
-          SizedBox(height: 10,),
-          Row(
-            children: <Widget>[
-              SizedBox(width: 100,),
-              Text('1 Km',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 100,),
-
-              Text('5 km/h',
-              style: TextStyle(fontSize: 12,
-              color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-              SizedBox(width: 50,),
-            ],
-          ),
-        ],
-      ),
-    );
+    return listOfPolyline;
+  
   }
 
 }
