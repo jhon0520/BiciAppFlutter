@@ -97,20 +97,22 @@ class HomePagePrincipal extends StatelessWidget {
 
           int time = int.parse(DateFormat('H').format(DateTime.now()));
 
-          //final position = await geoLocationProvider.getLocation();
-          //WeatherModel weatherresponse  = await wheatherProvider.apiRequest(position.latitude, position.longitude);
+          final position = await geoLocationProvider.getLocation();
+          WeatherModel weatherresponse  = await wheatherProvider.apiRequest(position.latitude, position.longitude);
 
-          WeatherModel weatherresponse = await wheatherProvider.apiRequest(3.4774142, -76.4947062);
+          //WeatherModel weatherresponse = await wheatherProvider.apiRequest(3.4774142, -76.4947062);
           wheatherProvider.setWeatherModel = weatherresponse;
 
           UserModel userData = user.userModel;
 
-          if((userData.toursNumbers % 20) == 0 && time >= 18 || time < 6){
+          print((userData.toursNumbers % 20) == 0);
+
+          if((userData.toursNumbers % 20) == 0 && (time >= 18 || time < 6)){
             showAlerttodolistNight(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nYa es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
-          }else if ((userData.toursNumbers % 20) == 0 && time >= 6 || time < 18) {
+          }else if ((userData.toursNumbers % 20) == 0 && (time >= 6 || time < 18)) {
             showAlerttodolistDay(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nDeberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if(time >= 6 || time < 18){
-            showAlerttodolistNight(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
+            showAlerttodolistDay(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if(time >= 18 || time < 6){
             showAlerttodolistNight(context,'Ten cuidado','Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
           }

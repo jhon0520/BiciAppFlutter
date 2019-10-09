@@ -10,8 +10,8 @@ class UserDataAPI extends ChangeNotifier{
   http.Response _response;
 
   //String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
-  //String url = 'http://157.230.83.235:3000/api/validateUser';
-  String url = 'http://192.168.1.53:3000/api/';
+  String url = 'http://157.230.83.235:3000/api/';
+  //String url = 'http://192.168.1.53:3000/api/';
 
   UserModel get userModel => _userModel;
 

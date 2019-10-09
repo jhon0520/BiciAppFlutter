@@ -43,12 +43,12 @@ class DayTodoListView extends StatelessWidget {
               child: Container(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 10.0),
-              _radioButton1(todoListinformation[0].id, todolistProvider.getGrupValue1, todoListinformation[0].title, todoListinformation[0].text,todolistProvider, dayMode, stylePage),
+              // SizedBox(height: 10.0),
+              // _radioButton1(todoListinformation[0].id, todolistProvider.getGrupValue1, todoListinformation[0].title, todoListinformation[0].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
               _radioButton2(todoListinformation[1].id, todolistProvider.getGrupValue2, todoListinformation[1].title, todoListinformation[1].text,todolistProvider, dayMode, stylePage),
-              SizedBox(height: 10.0),
-              _radioButton3(todoListinformation[2].id, todolistProvider.getGrupValue3, todoListinformation[2].title, todoListinformation[2].text,todolistProvider, dayMode, stylePage),
+              // SizedBox(height: 10.0),
+              // _radioButton3(todoListinformation[2].id, todolistProvider.getGrupValue3, todoListinformation[2].title, todoListinformation[2].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
               _radioButton4(todoListinformation[3].id, todolistProvider.getGrupValue4, todoListinformation[3].title, todoListinformation[3].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),

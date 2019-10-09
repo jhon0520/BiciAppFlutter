@@ -24,11 +24,16 @@ class HistoryLapsView extends StatelessWidget {
     LoginPageStyleModel stylePage = LoginPageStyleModel();
     bool dayMode = dayModeProvider.dayMode;
 
-    UserModel userData = userProvider.userModel;
-    historyLapsProvider.initState(userData);
-
     int dropDownPosition = historyLapsProvider.getDropDownPosition;
     LatLng centerMap = LatLng(3.404142, -76.523088);
+
+    UserModel userData = userProvider.userModel;
+    if(dropDownPosition == 0){
+      historyLapsProvider.initState(userData);
+    }else{
+      historyLapsProvider.searchDataRoute(dropDownPosition , userData);
+    }
+    //historyLapsProvider.initState(userData);
 
     return WillPopScope(
       onWillPop: () async {
@@ -152,8 +157,8 @@ class HistoryLapsView extends StatelessWidget {
       for(index = 0; index < polylineArray.length ; index++){
         final polyline = Polyline(
           points: polylineArray[index],
-          //color: Colors.lightBlueAccent,
-          color: colors[index],
+          color: Colors.lightBlueAccent,
+          //color: colors[index],
           strokeWidth: 4.0,
         );
         listOfPolyline.add(polyline);
@@ -163,10 +168,17 @@ class HistoryLapsView extends StatelessWidget {
 
     }
 
-    print(polylineArray[dropDownPosition-1]);
+    //print(polylineArray[dropDownPosition-1]);
+    // final polyline = Polyline(
+    //       points: polylineArray[dropDownPosition-1],
+    //       color: Colors.lightBlueAccent,
+    //       strokeWidth: 4,
+    //     );
+    //   listOfPolyline.add(polyline);
+    print(polylineArray[0]);
 
     final polyline = Polyline(
-          points: polylineArray[dropDownPosition-1],
+          points: polylineArray[0],
           color: Colors.lightBlueAccent,
           strokeWidth: 4,
         );

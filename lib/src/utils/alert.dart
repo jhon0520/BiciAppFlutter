@@ -137,7 +137,7 @@ void showAlerttodolistDay (BuildContext context, String title, String content){
             child: Text('ok'),
             onPressed: (){
               Navigator.of(context).pop();
-              Navigator.pushNamed(context, 'nighttodolist');
+              Navigator.pushNamed(context, 'daytodolist');
             },
           ),
           FlatButton(

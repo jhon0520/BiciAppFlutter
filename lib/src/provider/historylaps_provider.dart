@@ -67,25 +67,37 @@ class HistoryLapsProvider extends ChangeNotifier {
 
         //final latitudeindex = userData.routes[index1].latitude.length;
         for(index2= 0; index2 < userData.routes[index1].latitude.length; index2++){
-          if(index2 == 0){
           final latitude = userData.routes[index1].latitude[index2];
           final longitude = userData.routes[index1].longitude[index2];
           setCoordenades = LatLng(latitude,longitude);
-          }else{
-          final latitude = userData.routes[index1].latitude[index2-1];
-          final longitude = userData.routes[index1].longitude[index2-1];
-          setCoordenades = LatLng(latitude,longitude);
-          }
-          // final latitude = userData.routes[index1].latitude[index2];
-          // final longitude = userData.routes[index1].longitude[index2];
-          // setCoordenades = LatLng(latitude,longitude);
-          
         }
 
         setPolilyneList = getCoordenades;
         print(getPolilyneList);
       }
     }
+
+  }
+
+  void searchDataRoute(int arrayPosition, UserModel userData){
+
+    
+      //setDropDownListOptios = '0.0 Tus rutas';
+      setCount = 1;
+      getPolilyneList.clear();
+
+      int index2 = 0;
+
+        getCoordenades.clear();
+        
+        for(index2= 0; index2 < userData.routes[arrayPosition-1].latitude.length; index2++){
+          final latitude = userData.routes[arrayPosition-1].latitude[index2];
+          final longitude = userData.routes[arrayPosition-1].longitude[index2];
+          setCoordenades = LatLng(latitude,longitude);
+        }
+
+        setPolilyneList = getCoordenades;
+        //print(getPolilyneList);
 
   }
 

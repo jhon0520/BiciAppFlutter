@@ -17,8 +17,8 @@ class RegisterProvider extends ChangeNotifier{
   String _datePicked = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   //String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
-  //String url = 'http://157.230.83.235:3000/api/validateUser';
-  String url = 'http://192.168.1.51:3000/api/createUser';
+  String url = 'http://157.230.83.235:3000/api/validateUser';
+  //String url = 'http://192.168.1.51:3000/api/createUser';
 
    UserModel get userModel => _userModel;
 
