@@ -157,7 +157,7 @@ class LocationProvider extends ChangeNotifier{
             double distance = calculateDistance(getPoints[position-2].latitude,getPoints[position-1].latitude,
                                                 getPoints[position-2].longitude,getPoints[position-1].longitude);
             //print('distance: ${distance.toString()}');
-            print(getDistances.length);
+            //print(getDistances.length);
             setnewDistance = (getDistances[getDistances.length-1] + distance);
 
             //print('Time $getTime');
@@ -171,12 +171,12 @@ class LocationProvider extends ChangeNotifier{
               }
               setnewVelocity = speed;
               setVelocityChanged = speed;
-              print('Speed: $speed');
+              //print('Speed: $speed');
             }
           }
         }
-        print("latitude location: $getLatitude");
-        print("longitude location: $getLongitude");
+        //print("latitude location: $getLatitude");
+        //print("longitude location: $getLongitude");
       }
     }
 

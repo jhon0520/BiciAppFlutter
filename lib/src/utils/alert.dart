@@ -45,13 +45,13 @@ void showAlertExit (BuildContext context){
         content: Text('¿Deseas finalizar la sesion?'),
         actions: <Widget>[
           FlatButton(
-            child: Text('ok'),
+            child: Text('Ver más'),
             onPressed: ()async {
               
               try{
 
               String dateNow = DateFormat('yyyy-MM-dd').format(DateTime.now());
-              print('Date Time = $dateNow');
+              //print('Date Time = $dateNow');
               
               RouteModel response = await routeProvider.apiRequest(dateNow.toString(), timer.stopwatchText, geoposition.getVelocitys, geoposition.getDistances, geoposition.getListOfLatitude, geoposition.getListOfLongitude);
               routeProvider.setRouteModel = response;
@@ -104,7 +104,7 @@ void showAlerttodolistNight (BuildContext context, String title, String content)
         content: Text(content),
         actions: <Widget>[
           FlatButton(
-            child: Text('ok'),
+            child: Text('Ver más'),
             onPressed: (){
               Navigator.of(context).pop();
               Navigator.pushNamed(context, 'nighttodolist');
@@ -134,7 +134,7 @@ void showAlerttodolistDay (BuildContext context, String title, String content){
         content: Text(content),
         actions: <Widget>[
           FlatButton(
-            child: Text('ok'),
+            child: Text('Ver más'),
             onPressed: (){
               Navigator.of(context).pop();
               Navigator.pushNamed(context, 'daytodolist');

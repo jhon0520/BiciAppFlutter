@@ -91,7 +91,7 @@ class NightTodoListView extends StatelessWidget {
           title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
           subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
           onChanged: (value) {
-            print(value);
+            //print(value);
             checked2 = true;
             todolistProvider.setGrupValue2 = value;
           },

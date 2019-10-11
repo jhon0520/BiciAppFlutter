@@ -31,11 +31,11 @@ class RouteProvider extends ChangeNotifier{
       "longitude": longitude.toString()
     };
 
-    print(jsonRequest);
+    //print(jsonRequest);
 
     _response = await http.post(url, body: jsonRequest);
 
-    print(_response);
+    //print(_response);
     
      RouteModel routeModel;
     if(_response.statusCode != 200){

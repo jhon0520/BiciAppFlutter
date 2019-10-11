@@ -23,7 +23,7 @@ class WeatherConsulting extends ChangeNotifier{
     String _url = 'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$_apikey';
     _response = await http.get(_url);
 
-    print(_response.statusCode);
+    //print(_response.statusCode);
   
     _weatherModel = weatherModelFromJson(_response.body);
    

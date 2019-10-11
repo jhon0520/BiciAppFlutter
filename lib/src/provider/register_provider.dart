@@ -17,7 +17,7 @@ class RegisterProvider extends ChangeNotifier{
   String _datePicked = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   //String url = 'http://192.168.1.51:3000/api/ValidarCuenta';
-  String url = 'http://157.230.83.235:3000/api/validateUser';
+  String url = 'http://157.230.83.235:3000/api/createUser';
   //String url = 'http://192.168.1.51:3000/api/createUser';
 
    UserModel get userModel => _userModel;
@@ -38,9 +38,9 @@ class RegisterProvider extends ChangeNotifier{
     );
 
     if(picked != null){
-      print(picked);
+      //print(picked);
       setDatePicked = DateFormat('yyyy-MM-dd').format(picked);
-      print(getdateNow);
+      //print(getdateNow);
     }
 
     return picked;
@@ -71,12 +71,12 @@ class RegisterProvider extends ChangeNotifier{
 	    "height": height.toString()
     };
 
-    print('Json Request $jsonRequest');
+    //print('Json Request $jsonRequest');
 
     _response = await http.post(url, body: jsonRequest);
     // _response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-    print(_response.statusCode);
-    print(_response.body);
+    //print(_response.statusCode);
+    //print(_response.body);
     if(_response.statusCode != 200){
       if(_response.statusCode == 404){
         _userModel = UserModel(response: false, message: null);

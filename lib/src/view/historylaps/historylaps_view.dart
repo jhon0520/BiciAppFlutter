@@ -86,7 +86,7 @@ class HistoryLapsView extends StatelessWidget {
                   listOfPolyline.clear();
                   historyLapsProvider.setOptionSelected = option;                  
                   historyLapsProvider.setDropDownPositon = int.parse(option.substring(0,2).toString());
-                  print(historyLapsProvider.getDropDownPosition);
+                  //print(historyLapsProvider.getDropDownPosition);
                 },
               ),
             )
@@ -130,12 +130,12 @@ class HistoryLapsView extends StatelessWidget {
   TileLayerOptions _crearMapa(bool dayMode, ) {
 
     return dayMode ? TileLayerOptions(
-      urlTemplate: 'https://api.mapbox.com/v4/'
-      '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
+      urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       additionalOptions: {
         'accessToken': 'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJjanY2MjF4NGIwMG9nM3lvMnN3ZDM1dWE5In0.0SfmUpbW6UFj7ZnRdRyNAw',
         'id': 'mapbox.streets'
       },
+      subdomains: ["a","b","c"]
     ) : TileLayerOptions(
       urlTemplate: 'https://api.mapbox.com/v4/'
       '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
@@ -149,7 +149,7 @@ class HistoryLapsView extends StatelessWidget {
     PolylineLayerOptions _drawPolyline(bool dayMode , int dropDownPosition, HistoryLapsProvider historyLapsProvider){
 
       List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
-      print('position: $dropDownPosition');
+      //print('position: $dropDownPosition');
 
     if( dropDownPosition == 0 ){
       int index = 0;
@@ -175,7 +175,7 @@ class HistoryLapsView extends StatelessWidget {
     //       strokeWidth: 4,
     //     );
     //   listOfPolyline.add(polyline);
-    print(polylineArray[0]);
+    //print(polylineArray[0]);
 
     final polyline = Polyline(
           points: polylineArray[0],

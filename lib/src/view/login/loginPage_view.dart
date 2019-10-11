@@ -208,7 +208,7 @@ class LoginPageView extends StatelessWidget {
           textColor: dayMode ? stylePage.colorTextDay : stylePage.colorTextNight,
           child: Text('Olvidaste tu contraseña?'),
           onPressed: () {
-            print('holasssssssssss');
+            //print('holasssssssssss');
           },
         ),
         Row(
@@ -273,7 +273,7 @@ class LoginPageView extends StatelessWidget {
                 icon: Image.asset('assets/icons/google.png'),
                 iconSize: 50.0,
                 onPressed: () {
-                  print('object Google');
+                  //print('object Google');
                 },
               ),
               SizedBox(
@@ -283,7 +283,7 @@ class LoginPageView extends StatelessWidget {
                 icon: Image.asset('assets/icons/facebook.png'),
                 iconSize: 50.0,
                 onPressed: () {
-                  print('object facebook.');
+                  //print('object facebook.');
                 },
               ),
             ],

@@ -73,7 +73,7 @@ class HistoryLapsProvider extends ChangeNotifier {
         }
 
         setPolilyneList = getCoordenades;
-        print(getPolilyneList);
+        //print(getPolilyneList);
       }
     }
 

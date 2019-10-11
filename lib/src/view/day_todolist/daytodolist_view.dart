@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 bool checked1 = false, checked2 = false, checked3 = false, checked4 = false;
 bool checked5= false, checked6= false, checked7= false;
 
+bool isRain = false;
+
 class DayTodoListView extends StatelessWidget {
   const DayTodoListView({Key key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class DayTodoListView extends StatelessWidget {
 
     WeatherConsulting wheatherProvider = Provider.of<WeatherConsulting>(context);
 
-    bool isRain = false;
+    
     double minTemp = 0;
 
     WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
@@ -89,7 +91,7 @@ class DayTodoListView extends StatelessWidget {
           title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
           subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
           onChanged: (value) {
-            print(value);
+            //print(value);
             checked2 = true;
             todolistProvider.setGrupValue2 = value;
           },
@@ -208,7 +210,24 @@ class DayTodoListView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 75.0,),
         onPressed: (){
 
-          if(checked1 && checked2 && checked3 && checked4 && checked5){
+          if( checked2 && checked4 && checked5 ){
+            if(isRain){
+              if (checked2 && checked4 && checked5 && checked7){
+                todolistProvider.setGrupValue1 = 10;
+                todolistProvider.setGrupValue2 = 11;
+                todolistProvider.setGrupValue3 = 12;
+                todolistProvider.setGrupValue4 = 13;
+                todolistProvider.setGrupValue5 = 14;
+                todolistProvider.setGrupValue6 = 15;
+                todolistProvider.setGrupValue7 = 16;
+                checked1 = false; checked2 = false; checked3 = false; checked4 = false;
+                checked5 = false; checked6 = false; checked7 = false;
+                tabIndexProvider.pageSelectedChange = 3;
+                Navigator.pushNamed(context, 'principal');
+              }else{
+                showAlert(context, 'Mensaje', 'Hay casillas sin verificar');
+              }
+            }
             todolistProvider.setGrupValue1 = 10;
             todolistProvider.setGrupValue2 = 11;
             todolistProvider.setGrupValue3 = 12;

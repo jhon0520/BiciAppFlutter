@@ -20,33 +20,59 @@ class MapView extends StatelessWidget {
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
 
+    if(timer.isStart){
+      // final position = location.getLocation();
+      // position.then((value) {
+      //   getlocation = LatLng(value.latitude, value.longitude);
+        
+      // }, onError: (error) {
+      //   print('completed with error $error');
+      // });
+      getlocation = LatLng(3.477438, -76.494755);
+    }
+
     if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
       location.getPosition();
     } 
 
-    return FlutterMap(
-      options: MapOptions(
-        center: getlocation,
-        zoom: 17
+    return Scaffold(
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.info_outline),
+        onPressed: (){
+          
+        },
       ),
-      layers: [
-        _crearMapa(dayMode),
-        _drawMarker(getlocation),
-        _drawPolyline(dayMode,location),
-      ],
-      
+          body: FlutterMap(
+        options: MapOptions(
+          center: getlocation,
+          //center: LatLng(3.477438, -76.494755),
+          zoom: 17
+        ),
+        layers: [
+          _createMap(dayMode),
+          //_drawMarker(getlocation),
+          _drawPolyline(dayMode,location),
+          _drawCircleStole(),
+          _drawMarker(getlocation),
+
+        ],
+        
+      ),
     );
   }
 
-  TileLayerOptions _crearMapa(bool dayMode) {
+  TileLayerOptions _createMap(bool dayMode) {
 
     return dayMode ? TileLayerOptions(
-      urlTemplate: 'https://api.mapbox.com/v4/'
-      '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
+      // urlTemplate: 'https://api.mapbox.com/v4/'
+      // '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
+      urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       additionalOptions: {
         'accessToken': 'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJjanY2MjF4NGIwMG9nM3lvMnN3ZDM1dWE5In0.0SfmUpbW6UFj7ZnRdRyNAw',
         'id': 'mapbox.streets'
       },
+      subdomains: ["a","b","c"]
     ) : TileLayerOptions(
       urlTemplate: 'https://api.mapbox.com/v4/'
       '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
@@ -65,7 +91,7 @@ class MapView extends StatelessWidget {
         height: 80.0,
         point: getlocation,
         builder: (ctx) => Container(
-          child: Icon(Icons.place, color: Colors.red, size: 40,),
+          child: Icon(Icons.fiber_manual_record, color: Colors.blue.withOpacity(0.5), size: 40,),
         ),
       )
     ];
@@ -82,6 +108,48 @@ class MapView extends StatelessWidget {
             ],);
   }
 
-
+  CircleLayerOptions _drawCircleStole (){
+    
+    return CircleLayerOptions(
+            circles: [
+              // CircleMarker(
+              //   point: LatLng(3.477438, -76.494755),
+              //   radius: 50,
+              //   useRadiusInMeter: true,
+              //   color: Colors.red.withOpacity(0.7)
+              // ),
+              CircleMarker(
+                point: LatLng(3.445474, -76.535538),
+                radius: 1000,
+                useRadiusInMeter: true,
+                color: Colors.red.withOpacity(0.7)
+              ),
+              CircleMarker(
+                point: LatLng(3.434008, -76.524534),
+                radius: 200,
+                useRadiusInMeter: true,
+                color: Colors.red.withOpacity(0.7)
+              ),
+              CircleMarker(
+                point: LatLng(3.405022, -76.522711),
+                radius: 600,
+                useRadiusInMeter: true,
+                color: Colors.red.withOpacity(0.7)
+              ),
+              CircleMarker(
+                point: LatLng(3.388490, -76.525060),
+                radius: 400,
+                useRadiusInMeter: true,
+                color: Colors.red.withOpacity(0.7)
+              ),
+              CircleMarker(
+                point: LatLng(3.378409, -76.538981),
+                radius: 300,
+                useRadiusInMeter: true,
+                color: Colors.red.withOpacity(0.7)
+              ),
+            ],
+          );
+  }
 
 }
