@@ -6,7 +6,7 @@ import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/historylaps_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
-import 'package:biciapp/src/provider/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
 
 List<Polyline> listOfPolyline = <Polyline> [];
 

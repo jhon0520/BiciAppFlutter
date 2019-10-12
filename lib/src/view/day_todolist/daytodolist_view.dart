@@ -3,7 +3,7 @@ import 'package:biciapp/src/model/nightTodoList/nighttodolist_model.dart';
 import 'package:biciapp/src/provider/nighthtodolist_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
-import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
+import 'package:biciapp/src/provider/api/weatherConsulting_provider.dart';
 import 'package:biciapp/src/utils/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

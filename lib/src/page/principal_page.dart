@@ -7,6 +7,7 @@ import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/view/principal/principalPage_view.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PrincipalPage extends StatefulWidget {
   PrincipalPage({Key key}) : super(key: key);
@@ -15,6 +16,26 @@ class PrincipalPage extends StatefulWidget {
 }
 
 class _PrincipalPageState extends State<PrincipalPage> {
+
+  final notifications = FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
+  }
+
+  Future onSelectNotification(String payload) async => await Navigator.pushReplacementNamed(context, 'principal');
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
@@ -24,9 +45,9 @@ class _PrincipalPageState extends State<PrincipalPage> {
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
 
-    if ((int.parse(timer.stopwatchText.substring(6, 8)) % 10) == 0 &&
+    if ((int.parse(timer.stopwatchText.substring(6, 8)) % 2) == 0 &&
         !timer.isStart && geoposition.getisStarted) {
-      geoposition.getPosition();
+        geoposition.getPosition();
     }
 
     Size size = MediaQuery.of(context).size;

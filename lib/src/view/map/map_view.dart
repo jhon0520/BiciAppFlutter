@@ -1,6 +1,9 @@
 import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
+import 'package:biciapp/src/utils/local_notications_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -31,16 +34,20 @@ class MapView extends StatelessWidget {
       getlocation = LatLng(3.477438, -76.494755);
     }
 
-    if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
-      location.getPosition();
-    } 
+    // if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
+    //   location.getPosition();
+    // } 
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.info_outline),
-        onPressed: (){
-          
+        onPressed: ()async {
+
+          final notifications = FlutterLocalNotificationsPlugin();
+
+          showSilentNotification(notifications, title: 'RoadApp', body: 'Notificación', id: 30);
+
         },
       ),
           body: FlutterMap(
@@ -65,14 +72,14 @@ class MapView extends StatelessWidget {
   TileLayerOptions _createMap(bool dayMode) {
 
     return dayMode ? TileLayerOptions(
-      // urlTemplate: 'https://api.mapbox.com/v4/'
-      // '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
-      urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      urlTemplate: 'https://api.mapbox.com/v4/'
+      '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
+      // urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       additionalOptions: {
         'accessToken': 'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJjanY2MjF4NGIwMG9nM3lvMnN3ZDM1dWE5In0.0SfmUpbW6UFj7ZnRdRyNAw',
         'id': 'mapbox.streets'
       },
-      subdomains: ["a","b","c"]
+      //subdomains: ["a","b","c"]
     ) : TileLayerOptions(
       urlTemplate: 'https://api.mapbox.com/v4/'
       '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',

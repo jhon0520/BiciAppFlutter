@@ -7,9 +7,9 @@ import 'package:biciapp/src/page/rodreedem_page.dart';
 import 'package:biciapp/src/provider/historylaps_provider.dart';
 import 'package:biciapp/src/provider/nighthtodolist_provider.dart';
 import 'package:biciapp/src/provider/register_provider.dart';
-import 'package:biciapp/src/provider/routedataapi_provider.dart';
-import 'package:biciapp/src/provider/userdataapi_provider.dart';
-import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
+import 'package:biciapp/src/provider/api/routedataapi_provider.dart';
+import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/api/weatherConsulting_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:biciapp/src/page/login_page.dart';

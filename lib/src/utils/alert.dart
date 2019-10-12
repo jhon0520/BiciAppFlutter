@@ -1,8 +1,8 @@
 import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/geoLocation_provider.dart';
-import 'package:biciapp/src/provider/routedataapi_provider.dart';
+import 'package:biciapp/src/provider/api/routedataapi_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
-import 'package:biciapp/src/provider/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
@@ -39,13 +39,13 @@ void showAlertExit (BuildContext context){
     context: context,
     builder: (context){
       return AlertDialog(
-        title: Text('Finalizar sesion'),
+        title: Text('Finalizar recorrido'),
         // backgroundColor: Colors.red,
         contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
-        content: Text('¿Deseas finalizar la sesion?'),
+        content: Text('¿Deseas finalizar su recorrido?'),
         actions: <Widget>[
           FlatButton(
-            child: Text('Ver más'),
+            child: Text('ok'),
             onPressed: ()async {
               
               try{

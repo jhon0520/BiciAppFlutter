@@ -1,7 +1,7 @@
 import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:biciapp/src/provider/tabs_provider.dart';
-import 'package:biciapp/src/provider/userdataapi_provider.dart';
-import 'package:biciapp/src/provider/weatherConsulting_provider.dart';
+import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
+import 'package:biciapp/src/provider/api/weatherConsulting_provider.dart';
 import 'package:biciapp/src/utils/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
@@ -112,9 +112,9 @@ class HomePagePrincipal extends StatelessWidget {
           }else if ((userData.toursNumbers % 20) == 0 && (time >= 6 || time < 18)) {
             showAlerttodolistDay(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nDeberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if(time >= 6 || time < 18){
-            showAlerttodolistDay(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
+            showAlerttodolistNight(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if(time >= 18 || time < 6){
-            showAlerttodolistNight(context,'Ten cuidado','Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
+            showAlerttodolistDay(context,'Ten cuidado','Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
           }
           
           // if(time >= 18 || time < 6){           
