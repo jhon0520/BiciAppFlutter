@@ -149,3 +149,23 @@ void showAlerttodolistDay (BuildContext context, String title, String content){
     }
   );
 }
+
+void showAlertDialog (BuildContext context){
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('¡Ten cuidado!'),
+        // backgroundColor: Colors.red,
+        contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
+        content: Text('Las zonas enmarcadas en Rojo, son zonas de peligro, donde probablemente encuentres amigos de los ajeno.'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('ok'),
+            onPressed: ()=> Navigator.of(context).pop(),
+          ),
+        ],
+      );
+    }
+  );
+}

@@ -51,5 +51,4 @@ Future _showNotification(
   @required String body,
   @required NotificationDetails type,
   int id = 0,
-}) =>
-    notifications.show(id, title, body, type);
+}) => notifications.show(id, title, body, type);

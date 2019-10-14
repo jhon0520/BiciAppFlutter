@@ -205,32 +205,32 @@ class HistoryLapsView extends StatelessWidget {
     return PolylineLayerOptions( polylines: listOfPolyline);
   }
 
-  List<Polyline> _createPolyline (int dropDownPosition, HistoryLapsProvider historyLapsProvider){
+  // List<Polyline> _createPolyline (int dropDownPosition, HistoryLapsProvider historyLapsProvider){
 
-    List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
+  //   List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
 
-    if( dropDownPosition == 0 ){
-      int index = 0;
+  //   if( dropDownPosition == 0 ){
+  //     int index = 0;
 
-      for(index = 0; index < polylineArray.length ; index++){
-        final polyline = Polyline(
-          points: polylineArray[index],
-          color: Colors.lightBlueAccent,
-          strokeWidth: 4,
-        );
-        listOfPolyline.add(polyline);
-      }
-    }
+  //     for(index = 0; index < polylineArray.length ; index++){
+  //       final polyline = Polyline(
+  //         points: polylineArray[index],
+  //         color: Colors.lightBlueAccent,
+  //         strokeWidth: 4,
+  //       );
+  //       listOfPolyline.add(polyline);
+  //     }
+  //   }
 
-    final polyline = Polyline(
-          points: polylineArray[dropDownPosition],
-          color: Colors.lightBlueAccent,
-          strokeWidth: 4,
-        );
-      listOfPolyline.add(polyline);
+  //   final polyline = Polyline(
+  //         points: polylineArray[dropDownPosition],
+  //         color: Colors.lightBlueAccent,
+  //         strokeWidth: 4,
+  //       );
+  //     listOfPolyline.add(polyline);
 
-    return listOfPolyline;
+  //   return listOfPolyline;
   
-  }
+  // }
 
 }

@@ -106,15 +106,14 @@ class HomePagePrincipal extends StatelessWidget {
           UserModel userData = user.userModel;
 
           //print((userData.toursNumbers % 20) == 0);
-
-          if((userData.toursNumbers % 20) == 0 && (time >= 18 || time < 6)){
-            showAlerttodolistNight(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nYa es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
-          }else if ((userData.toursNumbers % 20) == 0 && (time >= 6 || time < 18)) {
+          if ((userData.toursNumbers % 20) == 0 && (time >= 6 && time < 18)) {
             showAlerttodolistDay(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nDeberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
-          }else if(time >= 6 || time < 18){
-            showAlerttodolistNight(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
+          }else if((userData.toursNumbers % 20) == 0 && (time >= 18 && time < 6)){
+            showAlerttodolistNight(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nYa es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
+          }else if(time >= 6 && time < 18){
+            showAlerttodolistDay(context,'Ten cuidado','Deberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if(time >= 18 || time < 6){
-            showAlerttodolistDay(context,'Ten cuidado','Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
+            showAlerttodolistNight(context,'Ten cuidado','Ya es de noche, deberias de revisar algunas de estas cosas en tu bicicleta.');
           }
           
           // if(time >= 18 || time < 6){           

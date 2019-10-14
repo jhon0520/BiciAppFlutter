@@ -12,6 +12,7 @@ class LocationProvider extends ChangeNotifier{
   double _latitude = 3.423849;
   double _longitude = -76.521541;
   bool _isStarted = false;
+  bool _streetRobbery = true;
 
   List<LatLng> _listofPoints = <LatLng>[];
   List<double> _listofDistances = <double>[0.00001];
@@ -34,6 +35,8 @@ class LocationProvider extends ChangeNotifier{
   bool get getisStarted =>  _isStarted;
   double get getDistance => _distance;
   double get getVelocity => _velocity;
+
+  bool get getStreetRobbery => _streetRobbery;
 
   List<LatLng> get getPoints => _listofPoints;
   List<double> get getDistances => _listofDistances;
@@ -75,6 +78,12 @@ class LocationProvider extends ChangeNotifier{
 
   set setNewVelocity (double newVelocity){
     _velocity = newVelocity;
+    notifyListeners();
+  }
+
+  set setStreetRobbery (bool newStreetRobbery){
+
+    _streetRobbery = newStreetRobbery;
     notifyListeners();
   }
 
@@ -120,7 +129,7 @@ class LocationProvider extends ChangeNotifier{
     if(serviceStatus){
       _permission = await _locationService.requestPermission();
       if (_permission) {
-        return _location = await _locationService.getLocation();
+        return await _locationService.getLocation();
       }
       
     }

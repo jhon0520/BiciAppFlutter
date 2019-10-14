@@ -1,6 +1,6 @@
 import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
-import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
+//import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
 import 'package:biciapp/src/utils/local_notications_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,6 +8,7 @@ import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 
+import 'package:biciapp/src/utils/alert.dart';
 import 'package:biciapp/src/provider/geoLocation_provider.dart';
 
 class MapView extends StatelessWidget {
@@ -18,24 +19,24 @@ class MapView extends StatelessWidget {
 
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider location = Provider.of<LocationProvider>(context);
-    LatLng getlocation = LatLng(location.getLatitude,location.getLongitude);
+
+    LatLng getlocation = LatLng(3.477438, -76.494755);
 
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
 
     if(timer.isStart){
-      // final position = location.getLocation();
-      // position.then((value) {
-      //   getlocation = LatLng(value.latitude, value.longitude);
-        
-      // }, onError: (error) {
-      //   print('completed with error $error');
-      // });
-      getlocation = LatLng(3.477438, -76.494755);
+      location.getLocation().then((value) {
+        getlocation = LatLng(value.latitude, value.longitude);        
+      });
+      //getlocation = LatLng(3.477438, -76.494755);
+      //getlocation = LatLng(3.475356, -76.495990);
+    }else{
+      getlocation = LatLng(location.getLatitude,location.getLongitude);
     }
 
     // if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
-    //   location.getPosition();
+       //location.getPosition();
     // } 
 
     return Scaffold(
@@ -44,9 +45,18 @@ class MapView extends StatelessWidget {
         child: Icon(Icons.info_outline),
         onPressed: ()async {
 
-          final notifications = FlutterLocalNotificationsPlugin();
+          // if(3.477268 > getlocation.latitude && getlocation.latitude < 3.477640 && 
+          //    3.475706 < getlocation.latitude && getlocation.latitude > 3.476184 &&
 
-          showSilentNotification(notifications, title: 'RoadApp', body: 'Notificación', id: 30);
+          //    3.477268 > getlocation.latitude && getlocation.latitude > 3.475706 &&
+          //    3.477640 >  getlocation.latitude && getlocation.latitude > 3.476184
+          //   ){
+              
+          // }
+          // final notifications = FlutterLocalNotificationsPlugin();
+          // showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+
+          showAlertDialog(context);
 
         },
       ),

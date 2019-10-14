@@ -67,21 +67,21 @@ class DayTodoListView extends StatelessWidget {
     );
   }
 
-  Widget _radioButton1 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-    return Container(
-      child: RadioListTile(
-          value: todoListValue,
-          groupValue: grupValue,
-          title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-          subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          onChanged: (value) {
-            checked1 = true;
-            todolistProvider.setGrupValue1 = value;
-          },
-          activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
-        ),
-    );
-  }
+  // Widget _radioButton1 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
+  //   return Container(
+  //     child: RadioListTile(
+  //         value: todoListValue,
+  //         groupValue: grupValue,
+  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
+  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+  //         onChanged: (value) {
+  //           checked1 = true;
+  //           todolistProvider.setGrupValue1 = value;
+  //         },
+  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
+  //       ),
+  //   );
+  // }
 
   Widget _radioButton2 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
     return Container(
@@ -100,21 +100,21 @@ class DayTodoListView extends StatelessWidget {
     );
   }
 
-  Widget _radioButton3 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-    return Container(
-      child: RadioListTile(
-          value: todoListValue,
-          groupValue: grupValue,
-          title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-          subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          onChanged: (value) {
-            checked3 = true;
-            todolistProvider.setGrupValue3 = value;
-          },
-          activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
-        ),
-    );
-  }
+  // Widget _radioButton3 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
+  //   return Container(
+  //     child: RadioListTile(
+  //         value: todoListValue,
+  //         groupValue: grupValue,
+  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
+  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+  //         onChanged: (value) {
+  //           checked3 = true;
+  //           todolistProvider.setGrupValue3 = value;
+  //         },
+  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
+  //       ),
+  //   );
+  // }
 
   Widget _radioButton4 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
     return Container(
@@ -148,38 +148,38 @@ class DayTodoListView extends StatelessWidget {
     );
   }
 
-  Widget _radioButton6 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-    return Container(
-      child: RadioListTile(
-          value: todoListValue,
-          groupValue: grupValue,
-          title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-          subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          onChanged: (value) {
-            checked6 = true;
-            todolistProvider.setGrupValue6 = value;
-          },
-          activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
-        ),
-    );
-  }
+  // Widget _radioButton6 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
+  //   return Container(
+  //     child: RadioListTile(
+  //         value: todoListValue,
+  //         groupValue: grupValue,
+  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
+  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+  //         onChanged: (value) {
+  //           checked6 = true;
+  //           todolistProvider.setGrupValue6 = value;
+  //         },
+  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
+  //       ),
+  //   );
+  // }
 
-  Widget _radioButton7 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-    return Container(
-      child: RadioListTile(
-          value: todoListValue,
-          groupValue: grupValue,
-          title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-          subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-          onChanged: (value) {
-            checked7 = true;
-            todolistProvider.setGrupValue7 = value;
-          },
-          activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
+  // Widget _radioButton7 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
+  //   return Container(
+  //     child: RadioListTile(
+  //         value: todoListValue,
+  //         groupValue: grupValue,
+  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
+  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+  //         onChanged: (value) {
+  //           checked7 = true;
+  //           todolistProvider.setGrupValue7 = value;
+  //         },
+  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
           
-        ),
-    );
-  }
+  //       ),
+  //   );
+  // }
 
   Widget _radioButtonLluvia (int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
     return Container(
