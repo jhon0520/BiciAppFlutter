@@ -1,9 +1,6 @@
 import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
-//import 'package:biciapp/src/provider/api/userdataapi_provider.dart';
-import 'package:biciapp/src/utils/local_notications_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -17,7 +14,6 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider location = Provider.of<LocationProvider>(context);
 
     LatLng getlocation = LatLng(3.477438, -76.494755);
@@ -25,23 +21,14 @@ class MapView extends StatelessWidget {
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
     bool dayMode = dayModeProvider.dayMode;
 
-    if(timer.isStart){
-      location.getLocation().then((value) {
-        getlocation = LatLng(value.latitude, value.longitude);        
-      });
-    }else{
-      getlocation = LatLng(location.getLatitude,location.getLongitude);
-    }
+    getlocation = LatLng(location.getLatitude,location.getLongitude);
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.info_outline),
         onPressed: ()async {
-
-
           showAlertDialog(context);
-
         },
       ),
           body: FlutterMap(

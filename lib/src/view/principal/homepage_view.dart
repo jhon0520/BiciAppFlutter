@@ -97,7 +97,7 @@ class HomePagePrincipal extends StatelessWidget {
 
           int time = int.parse(DateFormat('H').format(DateTime.now()));
 
-          final position = await geoLocationProvider.getLocation();
+          LocationData position = await geoLocationProvider.getLocation();
           WeatherModel weatherresponse  = await wheatherProvider.apiRequest(position.latitude, position.longitude);
 
           // WeatherModel weatherresponse = await wheatherProvider.apiRequest(3.4774142, -76.4947062);

@@ -1,3 +1,4 @@
+import 'package:biciapp/src/provider/geoLocation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:biciapp/src/model/loginStyle/loginStyle_model.dart';
@@ -16,6 +17,7 @@ class LoginPageView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     UserDataAPI user = Provider.of<UserDataAPI>(context);
+    LocationProvider geoLocationProvider = Provider.of<LocationProvider>(context);
 
     Size size = MediaQuery.of(context).size;
     SwitchAppbarProvider dayModeProvider = Provider.of<SwitchAppbarProvider>(context);
@@ -46,7 +48,7 @@ class LoginPageView extends StatelessWidget {
                 SizedBox(height: 20.0),
                 _passwordTextField(dayMode, stylePage),
                 SizedBox(height: 20.0),
-                _loginButton(context, user, dayMode, stylePage),
+                _loginButton(context, user, dayMode, stylePage, geoLocationProvider),
                 SizedBox(height: 20.0),
                 _forgetPasswordText(context, dayMode, stylePage, size),
                 SizedBox(height: 20.0),
@@ -163,7 +165,7 @@ class LoginPageView extends StatelessWidget {
   }
 
   /// Section to create Buttom to Login
-  Widget _loginButton(BuildContext context, UserDataAPI user,bool dayMode, LoginPageStyleModel stylePage) {
+  Widget _loginButton(BuildContext context, UserDataAPI user,bool dayMode, LoginPageStyleModel stylePage, LocationProvider geoLocationProvider) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -175,8 +177,9 @@ class LoginPageView extends StatelessWidget {
         onPressed: ()async {
 
           try {
-            UserModel response = await user.apiRequest(userName, passWord);
 
+            LocationData position = await geoLocationProvider.getLocation();
+            UserModel response = await user.apiRequest(userName, passWord);
             user.setUserModel = response;
 
               if(response.response){

@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:latlong/latlong.dart';
 
 export 'package:provider/provider.dart';
+export 'package:location/location.dart';
 
 class LocationProvider extends ChangeNotifier{
 
@@ -129,10 +130,12 @@ class LocationProvider extends ChangeNotifier{
     if(serviceStatus){
       _permission = await _locationService.requestPermission();
       if (_permission) {
-        return await _locationService.getLocation();
+        _location = await _locationService.getLocation();
+        latitudeChanged = _location.latitude;
+        longitudeChanged = _location.longitude;
       }
-      
     }
+    return _location;
   }
 
   void getPosition () async {
