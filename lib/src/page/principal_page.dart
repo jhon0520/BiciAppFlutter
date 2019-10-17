@@ -54,17 +54,32 @@ class _PrincipalPageState extends State<PrincipalPage> {
     if ((int.parse(timer.stopwatchText.substring(6, 8)) % 5) == 0 && !timer.isStart && geoposition.getisStarted) {
         
         geoposition.getPosition();
-
-        if(3.477268 > getlocation.latitude && getlocation.latitude < 3.477640 && 
-             3.475706 < getlocation.latitude && getlocation.latitude > 3.476184 &&
-
-             3.477268 > getlocation.latitude && getlocation.latitude > 3.475706 &&
-             3.477640 >  getlocation.latitude && getlocation.latitude > 3.476184 &&
-
-            streetRobbery
+        if(3.457088 > getlocation.latitude && 3.435853 < getlocation.latitude &&
+             -76.545545 < getlocation.longitude && -76.525545 > getlocation.longitude && streetRobbery
             ){
-              geoposition.setStreetRobbery = false;
-              showSilentNotification(notifications, title: 'RoadApp', body: 'Cuidado, Zona peligrosa.', id: 30);
+              showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+              streetRobbery = false;
+          }else if(3.436042 > getlocation.latitude && 3.431242 < getlocation.latitude &&
+             -76.527099 < getlocation.longitude && -76.522099 > getlocation.longitude && streetRobbery
+             ){
+            showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+            streetRobbery = false;
+          }
+          else if(3.411684 > getlocation.latitude && 3.398684 < getlocation.latitude &&
+             -76.529001 < getlocation.longitude && -76.517001 > getlocation.longitude && streetRobbery
+             ){
+            showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+            streetRobbery = false;
+          } if(3.392515 > getlocation.latitude && 3.384515 < getlocation.latitude &&
+             -76.529991 < getlocation.longitude && -76.519991 > getlocation.longitude && streetRobbery
+             ){
+            showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+            streetRobbery = false;
+          }if(3.381675 > getlocation.latitude && 3.374675 < getlocation.latitude &&
+             -76.542268 < getlocation.longitude && -76.535768 > getlocation.longitude && streetRobbery
+             ){
+            showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
+            streetRobbery = false;
           }
     }
 

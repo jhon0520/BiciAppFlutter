@@ -12,6 +12,14 @@ List<Polyline> listOfPolyline = <Polyline> [];
 
 final colors = [Colors.red, Colors.blue, Colors.purple, Colors.yellow];
 
+int lastDistancePosition;
+String lasDistance;
+
+String duration;
+
+int lastVelocityPosition;
+String lasVelocity;
+
 class HistoryLapsView extends StatelessWidget {
   const HistoryLapsView({Key key}) : super(key: key);
 
@@ -51,6 +59,8 @@ class HistoryLapsView extends StatelessWidget {
               _crearDropdown(historyLapsProvider),
               //_createMap(dropDownPosition, centerMap, historyLapsProvider)
               _drawMap(dayMode, dropDownPosition, centerMap, historyLapsProvider),
+              SizedBox(height: 50,),
+              _history(dayMode, dropDownPosition, stylePage, userData),
             ],
           ),
         ),
@@ -99,10 +109,10 @@ class HistoryLapsView extends StatelessWidget {
   List<DropdownMenuItem<String>> getOpcionesDropdown(HistoryLapsProvider historyLapsProvider) {
     List<DropdownMenuItem<String>> lista = new List();
 
-    historyLapsProvider.getDropDownListOptios.forEach((poder) {
+    historyLapsProvider.getDropDownListOptios.forEach((historyOptions) {
       lista.add(DropdownMenuItem(
-        child: Text(poder, textAlign: TextAlign.center,),
-        value: poder,
+        child: Text(historyOptions, textAlign: TextAlign.center,),
+        value: historyOptions,
       ));
     });
 
@@ -149,7 +159,6 @@ class HistoryLapsView extends StatelessWidget {
     PolylineLayerOptions _drawPolyline(bool dayMode , int dropDownPosition, HistoryLapsProvider historyLapsProvider){
 
       List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
-      //print('position: $dropDownPosition');
 
     if( dropDownPosition == 0 ){
       int index = 0;
@@ -168,15 +177,6 @@ class HistoryLapsView extends StatelessWidget {
 
     }
 
-    //print(polylineArray[dropDownPosition-1]);
-    // final polyline = Polyline(
-    //       points: polylineArray[dropDownPosition-1],
-    //       color: Colors.lightBlueAccent,
-    //       strokeWidth: 4,
-    //     );
-    //   listOfPolyline.add(polyline);
-    //print(polylineArray[0]);
-
     final polyline = Polyline(
           points: polylineArray[0],
           color: Colors.lightBlueAccent,
@@ -184,53 +184,95 @@ class HistoryLapsView extends StatelessWidget {
         );
       listOfPolyline.add(polyline);
 
-      //listOfPolyline.clear();
-
-    //   var points = <LatLng>[];
-    //   points = <LatLng>[
-    //   LatLng(3.354404, -76.520375),
-    //   LatLng(3.354863, -76.520381),
-    //   LatLng(3.355202, -76.520375),
-    //   LatLng(3.355613, -76.520378),
-    //   LatLng(3.355876, -76.520386),
-    //   LatLng(3.356180, -76.520389),
-    // ];
-    // final polyline = Polyline(points: points, strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white));
-    // listOfPolyline.add(polyline);
-
-        // return PolylineLayerOptions( polylines: [
-        //       Polyline(points: points, strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
-        //     ],);
-
     return PolylineLayerOptions( polylines: listOfPolyline);
   }
 
-  // List<Polyline> _createPolyline (int dropDownPosition, HistoryLapsProvider historyLapsProvider){
+  Widget _history(bool dayMode , int dropDownPosition, LoginPageStyleModel stylePage, UserModel userData){
+    
+    if(dropDownPosition != 0){
+      lastDistancePosition = userData.routes[dropDownPosition-1].distance.length;
+      lasDistance = userData.routes[dropDownPosition-1].distance[lastDistancePosition-1].toString();
+      lasDistance = lasDistance.substring(0,5);
 
-  //   List<List<LatLng>> polylineArray = historyLapsProvider.getPolilyneList;
+      duration = userData.routes[dropDownPosition-1].time;
 
-  //   if( dropDownPosition == 0 ){
-  //     int index = 0;
+      lastVelocityPosition = userData.routes[dropDownPosition-1].velocity.length;
+      lasVelocity = userData.routes[dropDownPosition-1].distance[lastVelocityPosition-1].toString();
+      lasVelocity = lasDistance.substring(0,5);
 
-  //     for(index = 0; index < polylineArray.length ; index++){
-  //       final polyline = Polyline(
-  //         points: polylineArray[index],
-  //         color: Colors.lightBlueAccent,
-  //         strokeWidth: 4,
-  //       );
-  //       listOfPolyline.add(polyline);
-  //     }
-  //   }
+    }
 
-  //   final polyline = Polyline(
-  //         points: polylineArray[dropDownPosition],
-  //         color: Colors.lightBlueAccent,
-  //         strokeWidth: 4,
-  //       );
-  //     listOfPolyline.add(polyline);
+    return (dropDownPosition == 0) ? Container() : Container(
+      child: Center(
+              child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                SizedBox(width: 50,),
+                Text('Kilometros Recorridos',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 70,),
 
-  //   return listOfPolyline;
-  
-  // }
+                Text('Duración',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 50,),
+              ],
+            ),
+
+            SizedBox(height: 10,),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 100,),
+                Text('$lasDistance',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 100,),
+
+                Text('$duration',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 50,),
+              ],
+            ),
+
+            SizedBox(height: 30,),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 90,),
+                Text('Roads',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+
+                SizedBox(width: 75,),
+
+                Text('Velocidad promedio',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 50,),
+              ],
+            ),
+
+            SizedBox(height: 10,),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 100,),
+                Text('${userData.routes[dropDownPosition-1].rods}',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 125,),
+
+                Text('$lasVelocity',
+                style: TextStyle(fontSize: 12,
+                color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
+                SizedBox(width: 50,),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
 }

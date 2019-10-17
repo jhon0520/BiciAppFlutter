@@ -158,7 +158,7 @@ void showAlertDialog (BuildContext context){
         title: Text('¡Ten cuidado!'),
         // backgroundColor: Colors.red,
         contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
-        content: Text('Las zonas enmarcadas en Rojo, son zonas de peligro, donde probablemente encuentres amigos de los ajeno.'),
+        content: Text('Las zonas enmarcadas en Rojo, son zonas de peligro donde han habido robos.'),
         actions: <Widget>[
           FlatButton(
             child: Text('ok'),

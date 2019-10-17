@@ -27,7 +27,7 @@ class DayTodoListView extends StatelessWidget {
     WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
     minTemp = weatherInfo.main.tempMin - 273.15;
 
-    if(weatherInfo.weather[0].main == "Rain" && ( minTemp < 20.0 || minTemp < 22) ){
+    if(weatherInfo.weather[0].main == "Rain" || ( minTemp < 20.0 || minTemp < 22) ){
      isRain = true;
     }
 

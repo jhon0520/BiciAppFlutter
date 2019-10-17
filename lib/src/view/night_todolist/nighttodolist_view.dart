@@ -25,7 +25,7 @@ class NightTodoListView extends StatelessWidget {
     WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
     minTemp = weatherInfo.main.tempMin - 273.15;
 
-    if(weatherInfo.weather[0].main == "Rain" && ( minTemp < 20.0 || minTemp < 22) ){
+    if(weatherInfo.weather[0].main == "Rain" || ( minTemp < 20.0 || minTemp < 22) ){
      isRain = true;
     }
 
@@ -56,7 +56,7 @@ class NightTodoListView extends StatelessWidget {
               //_radioButton6(todoListinformation[5].id, todolistProvider.getGrupValue6, todoListinformation[5].title, todoListinformation[5].text,todolistProvider, dayMode, stylePage),
               //_radioButton7(todoListinformation[6].id, todolistProvider.getGrupValue7, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
-              isRain ? _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage) : Container(child: null,),
+              _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 20.0),
               _startButtom(context, dayMode, stylePage, todolistProvider, tabIndexProvider)
             ],

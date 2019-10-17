@@ -29,15 +29,9 @@ class MapView extends StatelessWidget {
       location.getLocation().then((value) {
         getlocation = LatLng(value.latitude, value.longitude);        
       });
-      //getlocation = LatLng(3.477438, -76.494755);
-      //getlocation = LatLng(3.475356, -76.495990);
     }else{
       getlocation = LatLng(location.getLatitude,location.getLongitude);
     }
-
-    // if( (int.parse(timer.stopwatchText.substring(6,8)) % 10)  == 0 && timer.isStart && location.getisStarted){
-       //location.getPosition();
-    // } 
 
     return Scaffold(
 
@@ -45,16 +39,6 @@ class MapView extends StatelessWidget {
         child: Icon(Icons.info_outline),
         onPressed: ()async {
 
-          // if(3.477268 > getlocation.latitude && getlocation.latitude < 3.477640 && 
-          //    3.475706 < getlocation.latitude && getlocation.latitude > 3.476184 &&
-
-          //    3.477268 > getlocation.latitude && getlocation.latitude > 3.475706 &&
-          //    3.477640 >  getlocation.latitude && getlocation.latitude > 3.476184
-          //   ){
-              
-          // }
-          // final notifications = FlutterLocalNotificationsPlugin();
-          // showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
 
           showAlertDialog(context);
 
@@ -64,7 +48,10 @@ class MapView extends StatelessWidget {
         options: MapOptions(
           center: getlocation,
           //center: LatLng(3.477438, -76.494755),
-          zoom: 17
+          zoom: 17,
+          onLongPress: (position){
+            print(position);
+          }
         ),
         layers: [
           _createMap(dayMode),
@@ -129,12 +116,6 @@ class MapView extends StatelessWidget {
     
     return CircleLayerOptions(
             circles: [
-              // CircleMarker(
-              //   point: LatLng(3.477438, -76.494755),
-              //   radius: 50,
-              //   useRadiusInMeter: true,
-              //   color: Colors.red.withOpacity(0.7)
-              // ),
               CircleMarker(
                 point: LatLng(3.445474, -76.535538),
                 radius: 1000,

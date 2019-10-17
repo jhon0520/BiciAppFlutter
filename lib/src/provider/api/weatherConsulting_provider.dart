@@ -1,8 +1,8 @@
-import 'package:biciapp/src/model/api/weather_module.dart';
+import 'package:biciapp/src/model/api/weather_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-export 'package:biciapp/src/model/api/weather_module.dart';
+export 'package:biciapp/src/model/api/weather_model.dart';
 
 class WeatherConsulting extends ChangeNotifier{
 
