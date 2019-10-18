@@ -27,7 +27,7 @@ class MapView extends StatelessWidget {
     bool dayMode = dayModeProvider.dayMode;
 
     getlocation = LatLng(location.getLatitude,location.getLongitude);
-    //getlocation = LatLng(3.353773,-76.521786);
+    // getlocation = LatLng(3.353773,-76.521786);
 
     return Scaffold(
 
@@ -103,17 +103,18 @@ class MapView extends StatelessWidget {
     List<LatLng> points2 = <LatLng>[];
 
     if(geoposition.getisStarted && trafficProvider.getTrafficModel != null){
-      int arrayLength = trafficProvider.getTrafficModel.flowSegmentData.coordinates.coordinate.length;
+      // int arrayLength = trafficProvider.getTrafficModel.flowSegmentData.coordinates.coordinate.length;
 
-      final traffic = trafficProvider.getTrafficModel;
-      for(int i = 0; i < arrayLength; i++){
-        points2.add(LatLng(traffic.flowSegmentData.coordinates.coordinate[i].latitude, traffic.flowSegmentData.coordinates.coordinate[i].longitude));
-      }
+      // final traffic = trafficProvider.getTrafficModel;
+      // for(int i = 0; i < arrayLength; i++){
+      //   points2.add(LatLng(traffic.flowSegmentData.coordinates.coordinate[i].latitude, traffic.flowSegmentData.coordinates.coordinate[i].longitude));
+      // }
+      points2 = trafficProvider.getTrafficPolyline;
     }
 
     return PolylineLayerOptions( polylines: [
               Polyline(points: points,strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
-              Polyline(points: points2,strokeWidth: 4.0,color: (dayMode ? Colors.blue : Colors.white)),
+              Polyline(points: points2,strokeWidth: 4.0,color: (dayMode ? Colors.orange[900] : Colors.white)),
             ],);
   }
 

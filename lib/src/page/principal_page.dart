@@ -92,11 +92,12 @@ class _PrincipalPageState extends State<PrincipalPage> {
         counter = counter + 5;
 
         trafficProvider.apiRequest(getlocation.latitude, getlocation.longitude).then((trafficData){
-        //trafficProvider.apiRequest(3.353773, -76.521786).then((trafficData){
+        // trafficProvider.apiRequest(3.353773, -76.521786).then((trafficData){
           if (trafficData.error == null) {
             print('good request');
+            trafficProvider.addTrafficPolyline();
           }else{
-            print('bad request');
+            trafficProvider.seHasData = true;
           }
         });
         
