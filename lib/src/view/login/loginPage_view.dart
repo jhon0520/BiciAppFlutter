@@ -178,7 +178,8 @@ class LoginPageView extends StatelessWidget {
 
           try {
 
-            LocationData position = await geoLocationProvider.getLocation();
+            await geoLocationProvider.getLocation();
+
             UserModel response = await user.apiRequest(userName, passWord);
             user.setUserModel = response;
 

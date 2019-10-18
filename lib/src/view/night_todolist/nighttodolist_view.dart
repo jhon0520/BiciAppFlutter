@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 bool checked1 = false, checked2 = false, checked3 = false, checked4 = false;
 bool checked5= false, checked6= false, checked7= false;
+bool isRain = false;
 
 class NightTodoListView extends StatelessWidget {
   const NightTodoListView({Key key}) : super(key: key);
@@ -19,13 +20,12 @@ class NightTodoListView extends StatelessWidget {
 
     WeatherConsulting wheatherProvider = Provider.of<WeatherConsulting>(context);
 
-    bool isRain = false;
     double minTemp = 0;
 
     WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
     minTemp = weatherInfo.main.tempMin - 273.15;
 
-    if(weatherInfo.weather[0].main == "Rain" || ( minTemp < 20.0 || minTemp < 22) ){
+    if(weatherInfo.weather[0].main == "Rain"){
      isRain = true;
     }
 
@@ -53,10 +53,10 @@ class NightTodoListView extends StatelessWidget {
               _radioButton4(todoListinformation[3].id, todolistProvider.getGrupValue4, todoListinformation[3].title, todoListinformation[3].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
               _radioButton5(todoListinformation[4].id, todolistProvider.getGrupValue5, todoListinformation[4].title, todoListinformation[4].text,todolistProvider, dayMode, stylePage),
-              //_radioButton6(todoListinformation[5].id, todolistProvider.getGrupValue6, todoListinformation[5].title, todoListinformation[5].text,todolistProvider, dayMode, stylePage),
-              //_radioButton7(todoListinformation[6].id, todolistProvider.getGrupValue7, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage),
               SizedBox(height: 10.0),
-              _radioButtonLluvia(todoListinformation[6].id, todolistProvider.getGrupValue5, todoListinformation[6].title, todoListinformation[6].text,todolistProvider, dayMode, stylePage),
+              isRain ? _radioButtonLluvia(todoListinformation[5].id, todolistProvider.getGrupValue6, todoListinformation[5].title, todoListinformation[5].text,todolistProvider, dayMode, stylePage) : Container(
+                child: null,
+              ),
               SizedBox(height: 20.0),
               _startButtom(context, dayMode, stylePage, todolistProvider, tabIndexProvider)
             ],
@@ -148,39 +148,6 @@ class NightTodoListView extends StatelessWidget {
     );
   }
 
-  // Widget _radioButton6 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-  //   return Container(
-  //     child: RadioListTile(
-  //         value: todoListValue,
-  //         groupValue: grupValue,
-  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-  //         onChanged: (value) {
-  //           checked6 = true;
-  //           todolistProvider.setGrupValue6 = value;
-  //         },
-  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
-  //       ),
-  //   );
-  // }
-
-  // Widget _radioButton7 ( int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
-  //   return Container(
-  //     child: RadioListTile(
-  //         value: todoListValue,
-  //         groupValue: grupValue,
-  //         title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
-  //         subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
-  //         onChanged: (value) {
-  //           checked7 = true;
-  //           todolistProvider.setGrupValue7 = value;
-  //         },
-  //         activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
-          
-  //       ),
-  //   );
-  // }
-
   Widget _radioButtonLluvia (int todoListValue, int grupValue, String todoListTitle, String todoListSubtitle, NightTodolistProvider todolistProvider, bool dayMode, LoginPageStyleModel stylePage){
     return Container(
       child: RadioListTile(
@@ -189,8 +156,8 @@ class NightTodoListView extends StatelessWidget {
           title: Text(todoListTitle, style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight) )),
           subtitle: Text(todoListSubtitle ,style: TextStyle(color: (dayMode ? stylePage.colorTextDay : stylePage.colorTextNight))),
           onChanged: (value) {
-            checked7 = true;
-            todolistProvider.setGrupValue7 = value;
+            checked6 = true;
+            todolistProvider.setGrupValue6 = value;
           },
           activeColor: (dayMode ? Colors.green[400] : Colors.blue[700]),
           
@@ -210,20 +177,37 @@ class NightTodoListView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 75.0,),
         onPressed: (){
 
-          if(checked1 && checked2 && checked3 && checked4 && checked5){
+            if(isRain){
+              if(checked1 && checked2 && checked3 && checked4 && checked5 && checked6){
+              todolistProvider.setGrupValue1 = 10;
+              todolistProvider.setGrupValue2 = 11;
+              todolistProvider.setGrupValue3 = 12;
+              todolistProvider.setGrupValue4 = 13;
+              todolistProvider.setGrupValue5 = 14;
+              todolistProvider.setGrupValue6 = 15;
+
+              checked1 = false; checked2 = false; checked3 = false; checked4 = false;
+              checked5 = false; checked6 = false;
+              tabIndexProvider.pageSelectedChange = 3;
+              Navigator.pushReplacementNamed(context, 'principal');
+            }else{
+              showAlert(context, 'Mensaje', 'Hay casillas sin verificar');
+            }
+          }else{
+            if(checked1 && checked2 && checked3 && checked4 && checked5){
             todolistProvider.setGrupValue1 = 10;
             todolistProvider.setGrupValue2 = 11;
             todolistProvider.setGrupValue3 = 12;
             todolistProvider.setGrupValue4 = 13;
             todolistProvider.setGrupValue5 = 14;
-            //todolistProvider.setGrupValue6 = 15;
-            //todolistProvider.setGrupValue7 = 16;
+
             checked1 = false; checked2 = false; checked3 = false; checked4 = false;
-            checked5 = false; checked6 = false; checked7 = false;
+            checked5 = false;
             tabIndexProvider.pageSelectedChange = 3;
-            Navigator.pushNamed(context, 'principal');
+            Navigator.pushReplacementNamed(context, 'principal');
           }else{
             showAlert(context, 'Mensaje', 'Hay casillas sin verificar');
+          }
           }
         
         },

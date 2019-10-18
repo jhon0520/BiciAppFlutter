@@ -27,7 +27,7 @@ class DayTodoListView extends StatelessWidget {
     WeatherModel weatherInfo = wheatherProvider.getWeatherModel;
     minTemp = weatherInfo.main.tempMin - 273.15;
 
-    if(weatherInfo.weather[0].main == "Rain" || ( minTemp < 20.0 || minTemp < 22) ){
+    if(weatherInfo.weather[0].main == "Rain"){
      isRain = true;
     }
 
@@ -223,7 +223,7 @@ class DayTodoListView extends StatelessWidget {
                 checked1 = false; checked2 = false; checked3 = false; checked4 = false;
                 checked5 = false; checked6 = false; checked7 = false;
                 tabIndexProvider.pageSelectedChange = 3;
-                Navigator.pushNamed(context, 'principal');
+                Navigator.pushReplacementNamed(context, 'principal');
               }else{
                 showAlert(context, 'Mensaje', 'Hay casillas sin verificar');
               }
@@ -238,7 +238,7 @@ class DayTodoListView extends StatelessWidget {
             checked1 = false; checked2 = false; checked3 = false; checked4 = false;
             checked5 = false; checked6 = false; checked7 = false;
             tabIndexProvider.pageSelectedChange = 3;
-            Navigator.pushNamed(context, 'principal');
+            Navigator.pushReplacementNamed(context, 'principal');
           }else{
             showAlert(context, 'Mensaje', 'Hay casillas sin verificar');
           }

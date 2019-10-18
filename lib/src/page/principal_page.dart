@@ -1,3 +1,4 @@
+import 'package:biciapp/src/provider/api/trafficConsulting_provider.dart';
 import 'package:biciapp/src/utils/local_notications_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
@@ -10,6 +11,8 @@ import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
 import 'package:biciapp/src/view/principal/principalPage_view.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+int counter = 0;
 
 class PrincipalPage extends StatefulWidget {
   PrincipalPage({Key key}) : super(key: key);
@@ -47,6 +50,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
     // Get location on all pages
     ChronometerProvider timer = Provider.of<ChronometerProvider>(context);
     LocationProvider geoposition = Provider.of<LocationProvider>(context);
+    TrafficProvider trafficProvider = Provider.of<TrafficProvider>(context);
 
     bool streetRobbery = geoposition.getStreetRobbery;
     LatLng getlocation = LatLng(geoposition.getLatitude,geoposition.getLongitude);
@@ -81,6 +85,35 @@ class _PrincipalPageState extends State<PrincipalPage> {
             showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 30);
             streetRobbery = false;
           }
+    }else if((int.parse(timer.stopwatchText.substring(3, 5)) % 5) == 0 && !timer.isStart && geoposition.getisStarted) {
+
+      if ((int.parse(timer.stopwatchText.substring(3, 5))) == counter) {
+
+        counter = counter + 5;
+
+        trafficProvider.apiRequest(getlocation.latitude, getlocation.longitude).then((trafficData){
+        //trafficProvider.apiRequest(3.353773, -76.521786).then((trafficData){
+          if (trafficData.error == null) {
+            print('good request');
+          }else{
+            print('bad request');
+          }
+        });
+        
+      }
+      // trafficProvider.apiRequest(getlocation.latitude, getlocation.longitude).then((traffic){
+        
+      //   TrafficModel traffic;
+      //   int arrayLength = traffic.flowSegmentData.coordinates.coordinate.length;
+
+      //   if (traffic != null &&
+      //     traffic.flowSegmentData.coordinates.coordinate[0].latitude > getlocation.latitude && traffic.flowSegmentData.coordinates.coordinate[arrayLength-1].latitude < getlocation.latitude &&
+      //     traffic.flowSegmentData.coordinates.coordinate[0].latitude < getlocation.longitude && traffic.flowSegmentData.coordinates.coordinate[arrayLength-1].longitude > getlocation.longitude && streetRobbery
+      // ) {
+      //   showSilentNotification(notifications, title: 'RoadApp', body: 'Hay trafico en tu zona', id: 30);
+      // }
+      // });
+      
     }
 
     Size size = MediaQuery.of(context).size;

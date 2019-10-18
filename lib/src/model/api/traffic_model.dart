@@ -1,22 +1,38 @@
 // To parse this JSON data, do
 //
-//     final trafficModel = trafficModelFromJson(jsonString);
+//  final trafficModel = trafficModelFromJson(jsonString);
 
 import 'dart:convert';
 
 TrafficModel trafficModelFromJson(String str) => TrafficModel.fromJson(json.decode(str));
+
+TrafficModel trafficModelErrorFromJson(String str) => TrafficModel.fromErrorJson(json.decode(str));
 
 String trafficModelToJson(TrafficModel data) => json.encode(data.toJson());
 
 class TrafficModel {
     FlowSegmentData flowSegmentData;
 
+    String error;
+    int httpStatusCode;
+    DetailedError detailedError;
+
     TrafficModel({
         this.flowSegmentData,
+
+        this.error,
+        this.httpStatusCode,
+        this.detailedError,
     });
 
     factory TrafficModel.fromJson(Map<String, dynamic> json) => TrafficModel(
         flowSegmentData: FlowSegmentData.fromJson(json["flowSegmentData"]),
+    );
+
+    factory TrafficModel.fromErrorJson(Map<String, dynamic> json) => TrafficModel(
+        error: json["error"],
+        httpStatusCode: json["httpStatusCode"],
+        detailedError: DetailedError.fromJson(json["detailedError"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -101,5 +117,25 @@ class Coordinate {
     Map<String, dynamic> toJson() => {
         "latitude": latitude,
         "longitude": longitude,
+    };
+}
+
+class DetailedError {
+    String code;
+    String message;
+
+    DetailedError({
+        this.code,
+        this.message,
+    });
+
+    factory DetailedError.fromJson(Map<String, dynamic> json) => DetailedError(
+        code: json["code"],
+        message: json["message"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "code": code,
+        "message": message,
     };
 }

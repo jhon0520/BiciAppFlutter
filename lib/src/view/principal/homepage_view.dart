@@ -105,7 +105,6 @@ class HomePagePrincipal extends StatelessWidget {
 
           UserModel userData = user.userModel;
 
-          print((userData.toursNumbers % 20) == 0);
           if ((userData.toursNumbers % 20) == 0 && (time >= 6 && time < 18)) {
             showAlerttodolistDay(context,'¡Alerta!','¡Llevas 20 recorridos!\n\nDeberias pensar en hacer un mantenimiento a tu bicicleta.\n\nDeberias de revisar algunas de estas cosas en tu bicicleta antes de empezar tu recorrido.');
           }else if((userData.toursNumbers % 20) == 0 && (time >= 18 && time <= 23 || time >= 0 && time < 6)){

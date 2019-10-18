@@ -22,16 +22,8 @@ class UserDataAPI extends ChangeNotifier{
 
   Future<UserModel> apiRequest (String email, String password) async{
 
-    if( email == null || password == null)
-    //return _userModel = UserModel(ok: false, usuario: null);
-
-    //_response = await http.post(url, body: {"nickName": email,"contrasena" : password});
-    print('email: $email - password: $password');
-
     _response = await http.post(url + "validateUser", body: {"email": email,"password" : password});
     // _response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-     //print(_response.statusCode);
-     //print(_response.body);
      UserModel userModel;
     if(_response.statusCode != 200){
       if(_response.statusCode == 404){
