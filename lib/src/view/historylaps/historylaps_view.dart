@@ -95,6 +95,7 @@ class HistoryLapsView extends StatelessWidget {
                 onChanged: (option) {
                   listOfPolyline.clear();
                   historyLapsProvider.setOptionSelected = option;                  
+                  print(int.parse(option.substring(0,2).toString()));
                   historyLapsProvider.setDropDownPositon = int.parse(option.substring(0,2).toString());
                   //print(historyLapsProvider.getDropDownPosition);
                 },

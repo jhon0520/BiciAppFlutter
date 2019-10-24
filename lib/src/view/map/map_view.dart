@@ -1,7 +1,9 @@
 import 'package:biciapp/src/provider/api/trafficConsulting_provider.dart';
 import 'package:biciapp/src/provider/chronometer_provider.dart';
 import 'package:biciapp/src/provider/switchappbarbuttom_provider.dart';
+import 'package:biciapp/src/utils/local_notications_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -27,14 +29,17 @@ class MapView extends StatelessWidget {
     bool dayMode = dayModeProvider.dayMode;
 
     getlocation = LatLng(location.getLatitude,location.getLongitude);
-    // getlocation = LatLng(3.353773,-76.521786);
+    getlocation = LatLng(3.353773,-76.521786);
 
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.info_outline),
         onPressed: ()async {
-          showAlertDialog(context);
+          // showAlertDialog(context);
+          final notifications = FlutterLocalNotificationsPlugin();
+          showSilentNotification(notifications, title: 'RoadApp', body: 'Ten cuidado, esta zona es peligrosa.', id: 29);
+          showSilentNotification(notifications, title: 'RoadApp', body: 'Hay tráfico en tu zona, presta atención.', id: 30);
         },
       ),
           body: FlutterMap(
@@ -103,12 +108,6 @@ class MapView extends StatelessWidget {
     List<LatLng> points2 = <LatLng>[];
 
     if(geoposition.getisStarted && trafficProvider.getTrafficModel != null){
-      // int arrayLength = trafficProvider.getTrafficModel.flowSegmentData.coordinates.coordinate.length;
-
-      // final traffic = trafficProvider.getTrafficModel;
-      // for(int i = 0; i < arrayLength; i++){
-      //   points2.add(LatLng(traffic.flowSegmentData.coordinates.coordinate[i].latitude, traffic.flowSegmentData.coordinates.coordinate[i].longitude));
-      // }
       points2 = trafficProvider.getTrafficPolyline;
     }
 

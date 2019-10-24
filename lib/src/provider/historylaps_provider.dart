@@ -59,7 +59,7 @@ class HistoryLapsProvider extends ChangeNotifier {
 
         getCoordenades.clear();
         
-        if(userData.routes.length >= 10){
+        if(index1 >= 9){
           setDropDownListOptios = "${index1+1}. " + userData.routes[index1].routeDate.toString().substring(0,10);
         }else{
           setDropDownListOptios = "0${index1+1}. " + userData.routes[index1].routeDate.toString().substring(0,10);

@@ -96,6 +96,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
           if (trafficData.error == null) {
             print('good request');
             trafficProvider.addTrafficPolyline();
+            showSilentNotification(notifications, title: 'RoadApp', body: 'Hay trafico en tu zona, presta atención.', id: 30);
           }else{
             trafficProvider.seHasData = true;
           }
